@@ -16,6 +16,8 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import uk.ac.dundee.computing.aec.instagrim.lib.AeSimpleSHA1;
 import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
+import java.util.HashSet;
+
 
 /**
  *
@@ -27,7 +29,7 @@ public class User {
         
     }
     
-    public boolean RegisterUser(String username, String Password){
+    public boolean RegisterUser(String username, String first_name, String last_name,String email, String Password){
         AeSimpleSHA1 sha1handler=  new AeSimpleSHA1();
         String EncodedPassword=null;
         try {
@@ -36,13 +38,19 @@ public class User {
             System.out.println("Can't check your password");
             return false;
         }
+        
+        
         Session session = cluster.connect("instagrim");
-        PreparedStatement ps = session.prepare("insert into userprofiles (login,password) Values(?,?)");
+        PreparedStatement ps = session.prepare("insert into userprofiles (login, first_name, last_name, email, password) Values(?,?,?,?,?)");
        
+        HashSet<String> emails = new HashSet<String>();
+        
+        emails.add(email);
+        
         BoundStatement boundStatement = new BoundStatement(ps);
         session.execute( // this is where the query is executed
                 boundStatement.bind( // here you are binding the 'boundStatement'
-                        username,EncodedPassword));
+                        username,first_name, last_name, emails, EncodedPassword));
         //We are assuming this always works.  Also a transaction would be good here !
         
         return true;
