@@ -14,9 +14,9 @@
 
     </head>
     <body>
-        <header>
-        <h1>InstaGrim ! </h1>
-        <h2>Your world in Black and White</h2>
+        <header class="topBar">
+            <h1>InstaGrim ! </h1>
+            <h2>Your world in Black and White</h2>
         </header>
         <nav>
             <ul>
@@ -33,7 +33,7 @@
                     <li>Password <input type="password" name="password"></li>
                 </ul>
                 <br/>
-                <input type="submit" value="Login"> 
+                <input class = "button" type="submit" value="Login"> 
             </form>
 
         </article>

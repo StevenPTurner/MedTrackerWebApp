@@ -15,7 +15,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
-        <header class="topBar">
+        <header>
             <h1>InstaGrim ! </h1>
             <h2>Your world in Black and White</h2>
         </header>

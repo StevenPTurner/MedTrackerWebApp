@@ -14,10 +14,29 @@ and open the template in the editor.
 	font-family: "Roboto Condensed", "sans-serif";
 }
 
-nav {
+nav{
+    position:relative;
+    margin-top: -100px;
+}
+nav ul li{
+    
+    display:block;
     text-align: left;
     border: 2px;
     float: right;
+    padding: 20px; 
+}
+
+nav li a{
+    color:white;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+nav li a:hover{
+    color:white;
+    text-decoration: none;
+    background-color: grey;
 }
 
 body{
@@ -33,8 +52,55 @@ header {
     box-shadow: 0px 1px 2px 0px black;
 }
 
+header h1, h2{
+    margin-left:20px;
+}
+
+article{
+    color:white;
+    margin: auto;
+    margin-top: 150px;
+    padding: auto;
+    position:relative;
+    width:70%;
+    height:400px;
+    background-color: #242424;
+    box-shadow: 0px 1px 2px 0px black; 
+    border-radius:20px;
+}
+
+article ul li input{
+    display: block;
+}
+
+.button {
+    margin-left:20px;
+}
+
+article p{
+    display:inline;
+    margin-left: 20px;
+}
+article ul{
+    list-style-type:none;
+    margin-left:-20px;
+}
+article h1{
+    padding: 20px 0px 20px 20px;
+}
+
+article h3{
+    padding: 20px 0px 20px 20px;
+}
+
+footer{
+    position:fixed;
+    bottom:0px;
+}
+
 /* taken from https://css-tricks.com/perfect-full-page-background-image/ */
 html { 
+    z-index:-1;
   background: url(images/background.jpg) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;

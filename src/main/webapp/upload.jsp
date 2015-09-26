@@ -13,8 +13,10 @@
         <link rel="stylesheet" type="text/css" href="Styles.css" />
     </head>
     <body>
-        <h1>InstaGrim ! </h1>
-        <h2>Your world in Black and White</h2>
+        <header>
+            <h1>InstaGrim ! </h1>
+            <h2>Your world in Black and White</h2>
+        </header>
         <nav>
             <ul>
                 <li class="nav"><a href="upload.jsp">Upload</a></li>
@@ -25,10 +27,10 @@
         <article>
             <h3>File Upload</h3>
             <form method="POST" enctype="multipart/form-data" action="Image">
-                File to upload: <input type="file" name="upfile"><br/>
+                <p>File to upload:</p> <input type="file" name="upfile"><br/>
 
                 <br/>
-                <input type="submit" value="Press"> to upload the file!
+                <input class="button" type="submit" value="Press"> to upload the file!
             </form>
 
         </article>
