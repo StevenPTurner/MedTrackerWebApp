@@ -8,9 +8,36 @@ and open the template in the editor.
     Author     : Administrator
 */
 
+@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed);
+
+* {
+	font-family: "Roboto Condensed", "sans-serif";
+}
 
 nav {
     text-align: left;
     border: 2px;
     float: right;
+}
+
+body{
+    margin: 0px;
+    margin-top: -20px;
+}
+header {
+   /* position:relative;*/
+    width: 100%;
+    height: 100px;
+    background-color: #242424;
+    color: white;
+    box-shadow: 0px 1px 2px 0px black;
+}
+
+/* taken from https://css-tricks.com/perfect-full-page-background-image/ */
+html { 
+  background: url(images/background.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
