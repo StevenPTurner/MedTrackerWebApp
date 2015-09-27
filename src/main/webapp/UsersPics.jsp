@@ -8,7 +8,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
 <!DOCTYPE html>
-<html>
+<html class="background">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Instagrim</title>
@@ -17,7 +17,7 @@
     <body>
         <header>
         
-        <h1>InstaGrim ! </h1>
+        <h1><a href="/Instagrim">InstaGrim!</a></h1>
         <h2>Your world in Black and White</h2>
         </header>
         
@@ -51,7 +51,7 @@
         </article>
         <footer>
             <ul>
-                <li class="footer"><a href="/Instagrim">Home</a></li>
+                 <li>&COPY; Steven Turner</li>
             </ul>
         </footer>
     </body>
