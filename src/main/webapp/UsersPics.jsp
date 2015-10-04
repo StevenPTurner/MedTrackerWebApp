@@ -23,6 +23,7 @@
         
         <nav>
             <ul>
+                <li><a href="/Instagrim/Logout">Logout</a></li>
                 <li class="nav"><a href="/Instagrim/upload.jsp">Upload</a></li>
                 <li class="nav"><a href="/Instagrim/Images/majed">Sample Images</a></li>
             </ul>

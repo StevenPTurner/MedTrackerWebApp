@@ -129,6 +129,7 @@ article h3{
 footer{
     position:fixed;
     bottom:0px;
+    color:white;
 }
 
 /* taken from https://css-tricks.com/perfect-full-page-background-image/ */
