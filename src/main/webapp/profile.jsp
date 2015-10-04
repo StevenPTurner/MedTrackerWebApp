@@ -1,14 +1,13 @@
 <%-- 
-    Document   : index
-    Created on : Sep 28, 2014, 7:01:44 PM
-    Author     : Administrator
+    Document   : profile
+    Created on : 04-Oct-2015, 15:15:08
+    Author     : steven
 --%>
-
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
 <!DOCTYPE html>
-<html class="background">
+<html >
     <head>
         <title>Instagrim</title>
         <link rel="stylesheet" type="text/css" href="Styles.css" />
@@ -46,6 +45,10 @@
                     }%>
             </ul>
         </nav>
+            
+            <% UserProfile userProfile = (UserProfile) request.getAttribute("UserProfile"); %>
+            <p><%=userProfile.getUsername()%></p>
+            
         <footer>
             <ul>
                 <li>&COPY; Steven Turner</li>

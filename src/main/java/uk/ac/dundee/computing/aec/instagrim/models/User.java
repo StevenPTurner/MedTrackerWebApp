@@ -16,7 +16,8 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import uk.ac.dundee.computing.aec.instagrim.lib.AeSimpleSHA1;
 import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
-import java.util.HashSet;
+import uk.ac.dundee.computing.aec.instagrim.stores.UserProfile;
+
 
 
 /**
@@ -43,17 +44,41 @@ public class User {
         Session session = cluster.connect("instagrim");
         PreparedStatement ps = session.prepare("insert into userprofiles (login, first_name, last_name, email, password) Values(?,?,?,?,?)");
        
-        HashSet<String> emails = new HashSet<String>();
-        
-        emails.add(email);
         
         BoundStatement boundStatement = new BoundStatement(ps);
         session.execute( // this is where the query is executed
                 boundStatement.bind( // here you are binding the 'boundStatement'
-                        username,first_name, last_name, emails, EncodedPassword));
+                        username,first_name, last_name, email, EncodedPassword));
         //We are assuming this always works.  Also a transaction would be good here !
         
         return true;
+    }
+    
+    //used to get all user data from database into a bean 
+    //was based on the IsValidUser method below
+    public UserProfile getUserProfile(String username){
+        UserProfile userProfile = new UserProfile();
+        Session session = cluster.connect("instagrim");
+        PreparedStatement ps = session.prepare("select * from userprofiles where login=?");
+        ResultSet rs = null;
+        BoundStatement boundStatement = new BoundStatement(ps);
+        
+        rs=session.execute(boundStatement.bind(username));
+        
+        session.close();
+        if (rs.isExhausted()) {
+            System.out.println("User does not exist");
+            return null;
+        } else {
+            for (Row row :rs) {
+                userProfile.setUsername(row.getString("login"));
+                userProfile.setEmail(row.getString("email"));
+                userProfile.setFirstName(row.getString("first_name"));
+                userProfile.setLastName(row.getString("last_name"));
+            }
+            return userProfile;
+        }
+        
     }
     
     public boolean IsValidUser(String username, String Password){

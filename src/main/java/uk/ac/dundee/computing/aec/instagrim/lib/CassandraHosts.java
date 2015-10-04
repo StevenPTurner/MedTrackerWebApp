@@ -16,7 +16,7 @@ import java.util.List;
  * Hosts are 192.168.2.10 Seed for Vagrant hosts
  *
  *
- *
+ *  
  *
  */
 public final class CassandraHosts {
