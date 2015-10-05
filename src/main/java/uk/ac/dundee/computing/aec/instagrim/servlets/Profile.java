@@ -71,6 +71,7 @@ public class Profile extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
+        //method as based on the display image list in image servlet
         
         String args[] = Convertors.SplitRequestPath(request);
         

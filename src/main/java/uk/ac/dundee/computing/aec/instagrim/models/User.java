@@ -14,6 +14,8 @@ import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import uk.ac.dundee.computing.aec.instagrim.lib.AeSimpleSHA1;
 import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
 import uk.ac.dundee.computing.aec.instagrim.stores.UserProfile;
@@ -30,8 +32,16 @@ public class User {
         
     }
     
-    public boolean RegisterUser(String username, String first_name, String last_name,String email, String Password){
+    //updated to take in more data apon login
+    public boolean RegisterUser(String username, String country, String first_name, String last_name,String email, String Password){
         AeSimpleSHA1 sha1handler=  new AeSimpleSHA1();
+        
+        //used to get sign up date and format it
+        Date currentDate = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("dd.MMM.yyyy");
+        String joindate = format.format(currentDate);
+        joindate = joindate.replace(".", " ");
+                
         String EncodedPassword=null;
         try {
             EncodedPassword= sha1handler.SHA1(Password);
@@ -42,13 +52,13 @@ public class User {
         
         
         Session session = cluster.connect("instagrim");
-        PreparedStatement ps = session.prepare("insert into userprofiles (login, first_name, last_name, email, password) Values(?,?,?,?,?)");
+        PreparedStatement ps = session.prepare("insert into userprofiles (login, country, first_name, joindate, last_name, email, password) Values(?,?,?,?,?,?,?)");
        
         
         BoundStatement boundStatement = new BoundStatement(ps);
         session.execute( // this is where the query is executed
                 boundStatement.bind( // here you are binding the 'boundStatement'
-                        username,first_name, last_name, email, EncodedPassword));
+                        username, country, first_name, joindate, last_name, email, EncodedPassword));
         //We are assuming this always works.  Also a transaction would be good here !
         
         return true;
@@ -57,24 +67,30 @@ public class User {
     //used to get all user data from database into a bean 
     //was based on the IsValidUser method below
     public UserProfile getUserProfile(String username){
+        //sets up needed objects and the cql statements to read from database
         UserProfile userProfile = new UserProfile();
         Session session = cluster.connect("instagrim");
         PreparedStatement ps = session.prepare("select * from userprofiles where login=?");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
         
-        rs=session.execute(boundStatement.bind(username));
+        rs=session.execute(boundStatement.bind(username)); // executes statement
         
         session.close();
+        
+        // if user dosn't exist
         if (rs.isExhausted()) {
             System.out.println("User does not exist");
             return null;
-        } else {
+        } else { //if it does fill profile bean
             for (Row row :rs) {
                 userProfile.setUsername(row.getString("login"));
                 userProfile.setEmail(row.getString("email"));
                 userProfile.setFirstName(row.getString("first_name"));
                 userProfile.setLastName(row.getString("last_name"));
+                userProfile.setCountry(row.getString("country"));
+                userProfile.setLastName(row.getString("last_name"));
+                userProfile.setJoinDate(row.getString("joindate"));
             }
             return userProfile;
         }

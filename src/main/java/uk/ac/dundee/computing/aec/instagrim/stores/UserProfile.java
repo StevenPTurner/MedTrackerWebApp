@@ -18,6 +18,8 @@ public class UserProfile {
     private String firstName=null;
     private String lastName=null;
     private String email=null;
+    private String country=null;
+    private String joinDate=null;
     
     public void UserProfile(){
     }
@@ -38,6 +40,14 @@ public class UserProfile {
         this.email = email;
     }
     
+    public void setCountry(String country) {
+        this.country = country;
+    }
+    
+    public void setJoinDate(String joinDate) {
+        this.joinDate = joinDate;
+    }
+    
     public String getUsername() {
         return username;
     }
@@ -51,4 +61,14 @@ public class UserProfile {
     public String getEmail() {
         return email;
     }
+    
+    public String getCountry() {
+        return country;
+    }
+    
+    public String getJoinDate() {
+        return joinDate;
+    }
+    
 }
+
