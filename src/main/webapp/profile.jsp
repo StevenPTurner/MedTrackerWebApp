@@ -36,7 +36,7 @@
                 <li><a href="/Instagrim/Profile/<%=lg.getUsername()%>">Your Profile</a></li>
                     <!-- only .equals would work, no idea why-->
                     <%          if(UserName.equals(userProfile.getUsername())) { %>               
-                <li><a href="/Instagrim">Edit</a></li>
+                <li><a href="/Instagrim/EditProfile/<%=lg.getUsername()%>">Edit</a></li>
                     <%          } 
                             } else {
                     %>

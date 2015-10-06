@@ -11,38 +11,28 @@ import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
-import uk.ac.dundee.computing.aec.instagrim.stores.UserProfile;
 import uk.ac.dundee.computing.aec.instagrim.models.User;
+import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 
 /**
  *
  * @author steven
  */
-@WebServlet(name = "Profile", urlPatterns = {"/Profile", "/Profile/*"})
-public class Profile extends HttpServlet {
-
+@WebServlet(name = "EditProfile", urlPatterns = {"/EditProfile/*"})
+public class EditProfile extends HttpServlet {
     
-    private Cluster cluster;
-
-    public Profile()
-    {
-        //super();
-    }
+    Cluster cluster = null;
     
     public void init(ServletConfig config) throws ServletException {
         // TODO Auto-generated method stub
         cluster = CassandraHosts.getCluster();
     }
-    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -54,8 +44,7 @@ public class Profile extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");
-        rd.forward(request,response);
+       
     }
 
     
@@ -71,16 +60,8 @@ public class Profile extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
-        //method as based on the display image list in image servlet
         
-        String args[] = Convertors.SplitRequestPath(request);
-        
-        
-        User user = new User();
-        user.setCluster(cluster);
-        UserProfile data = user.getUserProfile(args[2]);
-        RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");
-        request.setAttribute("UserProfile",data);
+        RequestDispatcher rd = request.getRequestDispatcher("/edit.jsp");
         rd.forward(request,response);
     }
 
@@ -95,7 +76,24 @@ public class Profile extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        String args[] = Convertors.SplitRequestPath(request);
+        
+        String country = request.getParameter("country");
+       // String password = request.getParameter("password");
+        String first_name = request.getParameter("first_name");
+        String last_name = request.getParameter("last_name");
+        String email = request.getParameter("email");
+        String login = request.getParameter("login");
+        
+        
+        
+        User us=new User();
+        us.setCluster(cluster);
+        us.editUserProfile(login, first_name, last_name, country, email);
+        System.out.println(login);
+        
+	response.sendRedirect("/Instagrim/Profile/" + login);
     }
 
     /**

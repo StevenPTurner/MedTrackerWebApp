@@ -64,6 +64,29 @@ public class User {
         return true;
     }
     
+    public boolean editUserProfile(String login, String first_name, String last_name, String country, String email)
+    {
+        /*AeSimpleSHA1 sha1handler=  new AeSimpleSHA1();
+        
+        String EncodedPassword=null;
+        try {
+            EncodedPassword= sha1handler.SHA1(password);
+        }catch (UnsupportedEncodingException | NoSuchAlgorithmException et){
+            System.out.println("Can't check your password");
+            return false;
+        }*/
+        
+        Session session = cluster.connect("instagrim");
+        PreparedStatement ps = session.prepare("update userprofiles set first_name = ?, last_name = ?, country = ?, email = ? where login = ?");
+       
+        
+        BoundStatement boundStatement = new BoundStatement(ps);
+        session.execute(boundStatement.bind(first_name, last_name, country, email, login));
+        //We are assuming this always works.  Also a transaction would be good here !
+        
+        return true;
+    }
+    
     //used to get all user data from database into a bean 
     //was based on the IsValidUser method below
     public UserProfile getUserProfile(String username){
