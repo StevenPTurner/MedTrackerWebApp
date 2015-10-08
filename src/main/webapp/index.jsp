@@ -24,6 +24,7 @@
 
                
                 <li><a href="upload.jsp">Upload</a></li>
+                <li><a href="/Instagrim/search.jsp">Search</a></li>
                     <%
                         
                         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");

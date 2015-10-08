@@ -120,6 +120,26 @@ public class User {
         
     }
     
+    public boolean searchForUser(String username)
+    {
+        //UserProfile userProfile = new UserProfile();
+        Session session = cluster.connect("instagrim");
+        PreparedStatement ps = session.prepare("select * from userprofiles where login=?");
+        ResultSet rs = null;
+        BoundStatement boundStatement = new BoundStatement(ps);
+        
+        rs=session.execute(boundStatement.bind(username)); // executes statement
+        
+        session.close();
+        
+        if (rs.isExhausted()) {
+            System.out.println("User does not exist");
+            return false;
+        }else{ 
+            return true;
+        }
+    }
+    
     public boolean IsValidUser(String username, String Password){
         AeSimpleSHA1 sha1handler=  new AeSimpleSHA1();
         String EncodedPassword=null;
