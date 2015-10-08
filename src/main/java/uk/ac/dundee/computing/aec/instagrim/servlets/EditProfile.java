@@ -19,6 +19,7 @@ import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
 import uk.ac.dundee.computing.aec.instagrim.models.User;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
+import uk.ac.dundee.computing.aec.instagrim.stores.UserProfile;
 
 /**
  *
@@ -60,6 +61,14 @@ public class EditProfile extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
+        
+        String args[] = Convertors.SplitRequestPath(request);
+        
+        User user = new User();
+        user.setCluster(cluster);
+        UserProfile data = user.getUserProfile(args[2]);     
+        request.setAttribute("UserProfile",data);
+
         
         RequestDispatcher rd = request.getRequestDispatcher("/edit.jsp");
         rd.forward(request,response);

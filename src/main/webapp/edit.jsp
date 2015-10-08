@@ -25,8 +25,13 @@
             </ul>
         </nav>
        <% LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");%>
+       <% String UserName = lg.getUsername(); %>
+       <%  UserProfile userProfile = (UserProfile) request.getAttribute("UserProfile"); %>
         <article>
+            
             <h3>Edit your profile: <%=lg.getUsername() %></h3>
+            
+            <% if(UserName.equals(userProfile.getUsername())) { %>
             <form method="POST"  action="Profile/<%=lg.getUsername() %>">
                 <ul>
                     <input type="hidden" name="login" value="<%=lg.getUsername() %>" readonly="readonly"></li>
@@ -39,7 +44,9 @@
                 <br/>
                 <input class="button" type="submit" value="Edit Details"> 
             </form>
-
+            <% } else { %>
+            <h3> ERROR not your profile </h3>
+            <%}%>
         </article>
         <footer>
             <ul>

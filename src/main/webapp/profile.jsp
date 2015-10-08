@@ -21,7 +21,7 @@
         <nav>
             <ul>
 
-               
+                <li><a href="/Instagrim/Logout">Logout</a></li>
                 <li><a href="upload.jsp">Upload</a></li>
                     <%
                         
@@ -31,9 +31,9 @@
                             String UserName = lg.getUsername();
                             if (lg.getlogedin()) {
                     %>
-                <li><a href="/Instagrim/Logout">Logout</a></li>
-                <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
                 <li><a href="/Instagrim/Profile/<%=lg.getUsername()%>">Your Profile</a></li>
+                
+                <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
                     <!-- only .equals would work, no idea why-->
                     <%          if(UserName.equals(userProfile.getUsername())) { %>               
                 <li><a href="/Instagrim/EditProfile/<%=lg.getUsername()%>">Edit</a></li>
