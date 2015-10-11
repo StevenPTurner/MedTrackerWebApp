@@ -140,6 +140,12 @@ footer{
     color:white;
 }
 
+.avatar{
+    max-height: 200px;
+    max-width: 200px;
+    margin-left: 20px;
+}
+
 /* taken from https://css-tricks.com/perfect-full-page-background-image/ */
 .background { 
     z-index:-1;

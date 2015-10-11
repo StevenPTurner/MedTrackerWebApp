@@ -17,6 +17,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import uk.ac.dundee.computing.aec.instagrim.lib.AeSimpleSHA1;
+import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
 import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
 import uk.ac.dundee.computing.aec.instagrim.stores.UserProfile;
 
@@ -64,8 +65,9 @@ public class User {
         return true;
     }
     
-    public boolean editUserProfile(String login, String first_name, String last_name, String country, String email)
+    public void editUserProfile(String login, String first_name, String last_name, String country, String email)
     {
+        // was going to be used to change user password
         /*AeSimpleSHA1 sha1handler=  new AeSimpleSHA1();
         
         String EncodedPassword=null;
@@ -78,13 +80,9 @@ public class User {
         
         Session session = cluster.connect("instagrim");
         PreparedStatement ps = session.prepare("update userprofiles set first_name = ?, last_name = ?, country = ?, email = ? where login = ?");
-       
-        
+           
         BoundStatement boundStatement = new BoundStatement(ps);
         session.execute(boundStatement.bind(first_name, last_name, country, email, login));
-        //We are assuming this always works.  Also a transaction would be good here !
-        
-        return true;
     }
     
     //used to get all user data from database into a bean 
@@ -138,6 +136,19 @@ public class User {
         }else{ 
             return true;
         }
+    }
+    
+    public void addComment(String commenterUsername, String comment, String profileUsername)
+    {
+        
+        Session session = cluster.connect("instagrim");
+        PreparedStatement ps = session.prepare("insert into usercomments (commentID, commenterusername, comment, profileusername) Values(?,?,?,?)");
+        
+        Convertors convertor = new Convertors();
+        java.util.UUID commentID = convertor.getTimeUUID();
+        
+        BoundStatement boundStatement = new BoundStatement(ps);
+        session.execute(boundStatement.bind(commentID, commenterUsername, comment, profileUsername));
     }
     
     public boolean IsValidUser(String username, String Password){

@@ -51,10 +51,20 @@
             <article>
                 <h1><%=userProfile.getUsername()%></h1>
                 <img class = "avatar" src="../images/avatar.png">
-                <p><%=userProfile.getFirstName()%> <%=userProfile.getLastName()%></p>
-                <p>Joined <%=userProfile.getJoinDate()%></p>
-                <p>From <%=userProfile.getCountry()%></p>
-                <p>E-mail address <%=userProfile.getEmail()%></p>
+                <ul>
+                    <li>Name: <%=userProfile.getFirstName()%> <%=userProfile.getLastName()%></li>
+                    <li>Joined on:  <%=userProfile.getJoinDate()%></li>
+                    <li>From: <%=userProfile.getCountry()%></li>
+                    <li>E-mail address: <%=userProfile.getEmail()%></li>
+                </ul>
+                
+                <table>
+                    <tr>
+                        <th>Profile Comments</th>
+                    </tr>
+                </table>
+                
+                <a href="../Comment/<%=userProfile.getUsername()%>">leave a comment</a>
                 
             </article>
         <footer>
