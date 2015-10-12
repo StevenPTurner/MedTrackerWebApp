@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
-import uk.ac.dundee.computing.aec.instagrim.models.User;
+import uk.ac.dundee.computing.aec.instagrim.models.CommentModel;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 
 /**
@@ -85,22 +85,16 @@ public class Comment extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
-        
-        
+
         HttpSession session=request.getSession();
         LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
         String comment = request.getParameter("comment");
-        
         System.out.println(lg.getUsername() + " " + comment + " " +  profile);
         
-        
-        
-        User user = new User();
-        user.setCluster(cluster);
-        user.addComment(lg.getUsername(), comment, profile);
-        
-        
+        CommentModel addComm = new CommentModel();
+        addComm.setCluster(cluster);
+        addComm.addComment(lg.getUsername(), comment, profile);
+         
 	response.sendRedirect("/Instagrim/Profile/" + profile);
     }
 

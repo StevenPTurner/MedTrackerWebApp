@@ -138,19 +138,6 @@ public class User {
         }
     }
     
-    public void addComment(String commenterUsername, String comment, String profileUsername)
-    {
-        
-        Session session = cluster.connect("instagrim");
-        PreparedStatement ps = session.prepare("insert into usercomments (commentID, commenterusername, comment, profileusername) Values(?,?,?,?)");
-        
-        Convertors convertor = new Convertors();
-        java.util.UUID commentID = convertor.getTimeUUID();
-        
-        BoundStatement boundStatement = new BoundStatement(ps);
-        session.execute(boundStatement.bind(commentID, commenterUsername, comment, profileUsername));
-    }
-    
     public boolean IsValidUser(String username, String Password){
         AeSimpleSHA1 sha1handler=  new AeSimpleSHA1();
         String EncodedPassword=null;

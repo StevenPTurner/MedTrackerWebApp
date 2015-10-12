@@ -21,7 +21,9 @@ import javax.servlet.http.Part;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
 import uk.ac.dundee.computing.aec.instagrim.stores.UserProfile;
+import uk.ac.dundee.computing.aec.instagrim.stores.Comment;
 import uk.ac.dundee.computing.aec.instagrim.models.User;
+import uk.ac.dundee.computing.aec.instagrim.models.CommentModel;
 
 /**
  *
@@ -70,17 +72,20 @@ public class Profile extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
         //method as based on the display image list in image servlet
         
-        String args[] = Convertors.SplitRequestPath(request);
-        
-        
+        String args[] = Convertors.SplitRequestPath(request);      
         User user = new User();
         user.setCluster(cluster);
         UserProfile data = user.getUserProfile(args[2]);
+        
+        CommentModel profileComments = new CommentModel();     
+        profileComments.setCluster(cluster);
+        java.util.LinkedList<Comment> profileComms = profileComments.getComments(args[2]);
+        
         RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");
         request.setAttribute("UserProfile",data);
+        request.setAttribute("comments", profileComms);
         rd.forward(request,response);
     }
 
