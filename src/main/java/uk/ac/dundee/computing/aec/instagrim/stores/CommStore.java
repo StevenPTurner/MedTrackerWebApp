@@ -5,13 +5,19 @@
  */
 package uk.ac.dundee.computing.aec.instagrim.stores;
 
-public class Comment {
+
+
+/**
+ *
+ * @author steven
+ */
+public class CommStore {
 
     private String commenter = null;
     private String comment = null;
     private String profile = null;
     
-    public void Comment(){
+    public void CommStore(){
     }
     
     public void setCommenter(String commenter) {

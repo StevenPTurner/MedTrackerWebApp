@@ -4,6 +4,7 @@
     Author     : steven
 --%>
 
+<%@page import="java.util.Iterator"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
 <!DOCTYPE html>
@@ -57,11 +58,26 @@
                     <li>From: <%=userProfile.getCountry()%></li>
                     <li>E-mail address: <%=userProfile.getEmail()%></li>
                 </ul>
-                
+                <% java.util.LinkedList<CommStore> comments = (java.util.LinkedList<CommStore>) request.getAttribute("comments"); %>
                 <table>
                     <tr>
                         <th>Profile Comments</th>
                     </tr>
+                    <% if (comments == null) { %>
+                    <tr> 
+                        <td>There are no comments yet! </td>
+                    </tr>
+                    <% } else { 
+                        Iterator<CommStore> iterator;
+                        iterator = comments.iterator();
+                        while (iterator.hasNext()) {
+                            CommStore comm = (CommStore) iterator.next(); %>
+                    <tr>
+                        <td><%=comm.getCommenter()%></td>
+                        <td><%=comm.getComment()%></td>
+                    </tr>
+                    <%}
+                    }%>
                 </table>
                 
                 <a href="../Comment/<%=userProfile.getUsername()%>">leave a comment</a>

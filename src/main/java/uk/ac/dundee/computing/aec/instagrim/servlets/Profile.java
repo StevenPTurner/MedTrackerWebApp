@@ -21,7 +21,7 @@ import javax.servlet.http.Part;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
 import uk.ac.dundee.computing.aec.instagrim.stores.UserProfile;
-import uk.ac.dundee.computing.aec.instagrim.stores.Comment;
+import uk.ac.dundee.computing.aec.instagrim.stores.CommStore;
 import uk.ac.dundee.computing.aec.instagrim.models.User;
 import uk.ac.dundee.computing.aec.instagrim.models.CommentModel;
 
@@ -78,14 +78,14 @@ public class Profile extends HttpServlet {
         User user = new User();
         user.setCluster(cluster);
         UserProfile data = user.getUserProfile(args[2]);
+        request.setAttribute("UserProfile",data);
         
         CommentModel profileComments = new CommentModel();     
         profileComments.setCluster(cluster);
-        java.util.LinkedList<Comment> profileComms = profileComments.getComments(args[2]);
+        java.util.LinkedList<CommStore> profileComms = profileComments.getComments(args[2]);
+        request.setAttribute("comments", profileComms);
         
         RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");
-        request.setAttribute("UserProfile",data);
-        request.setAttribute("comments", profileComms);
         rd.forward(request,response);
     }
 

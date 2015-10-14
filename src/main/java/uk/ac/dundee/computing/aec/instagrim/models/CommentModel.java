@@ -13,7 +13,7 @@ import uk.ac.dundee.computing.aec.instagrim.lib.AeSimpleSHA1;
 import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
 import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
 import uk.ac.dundee.computing.aec.instagrim.stores.UserProfile;
-import uk.ac.dundee.computing.aec.instagrim.stores.Comment;
+import uk.ac.dundee.computing.aec.instagrim.stores.CommStore;
 import java.util.LinkedList;
 
 
@@ -35,9 +35,11 @@ public class CommentModel {
     
     public void addComment(String commenterUsername, String comment, String profileUsername)
     {
+        Date currentDate = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
         
         Session session = cluster.connect("instagrim");
-        PreparedStatement ps = session.prepare("insert into usercomments (commentID, commenterusername, comment, profileusername) Values(?,?,?,?)");
+        PreparedStatement ps = session.prepare("insert into usercomments (comment_id, commenter_username, comment, profile_username) Values(?,?,?,?)");
         
         Convertors convertor = new Convertors();
         java.util.UUID commentID = convertor.getTimeUUID();
@@ -46,11 +48,10 @@ public class CommentModel {
         session.execute(boundStatement.bind(commentID, commenterUsername, comment, profileUsername));
     }
     
-    public java.util.LinkedList<Comment> getComments(String profileUsername)
-    {
-        java.util.LinkedList<Comment> comment = new java.util.LinkedList<>();
+    public java.util.LinkedList<CommStore> getComments(String profileUsername) {
+        java.util.LinkedList<CommStore> comment = new java.util.LinkedList<>();
         Session session = cluster.connect("instagrim");
-        PreparedStatement ps = session.prepare("select * from usercomments where profileusername=?");
+        PreparedStatement ps = session.prepare("select * from usercomments where profile_username = ? ALLOW FILTERING");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
         rs=session.execute(boundStatement.bind(profileUsername)); // executes statement
@@ -62,13 +63,14 @@ public class CommentModel {
             return null;
         } else { //if it does fill profile bean
             for (Row row : rs) {
-                Comment comm = new Comment();
+                CommStore comm = new CommStore();
                 comm.setComment(row.getString("comment"));
-                comm.setCommenter(row.getString("commenterusername"));
-                comm.setProfile(row.getString("profileusername"));
+                comm.setCommenter(row.getString("commenter_username"));
+                comm.setProfile(row.getString("profile_username"));
                 comment.add(comm);
             }
-        }
             return comment;
+        }
+        
     }
 }

@@ -46,10 +46,11 @@ public final class Keyspaces {
                     + "      joinDate text\n"
                     + "  );";
             String CreateComments = "CREATE TABLE if not exists instagrim.usercomments (\n"
-                    + "      commentID uuid PRIMARY KEY,\n"
-                    + "      commenterUsername text ,\n"
+                    + "      comment_id uuid,\n"
+                    + "      commenter_username text,\n"
                     + "      comment text,\n"
-                    + "      profileUsername text\n"
+                    + "      profile_username text,\n"
+                    + "      PRIMARY KEY (comment_id, profile_username)"
                     + "  );";
             Session session = c.connect();
             try {
