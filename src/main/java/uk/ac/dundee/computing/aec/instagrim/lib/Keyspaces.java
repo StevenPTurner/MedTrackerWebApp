@@ -50,6 +50,7 @@ public final class Keyspaces {
                     + "      commenter_username text,\n"
                     + "      comment text,\n"
                     + "      profile_username text,\n"
+                    + "      date_posted text, \n"
                     + "      PRIMARY KEY (comment_id, profile_username)"
                     + "  );";
             Session session = c.connect();

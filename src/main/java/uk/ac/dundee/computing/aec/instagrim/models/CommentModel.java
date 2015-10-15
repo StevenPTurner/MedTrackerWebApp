@@ -36,16 +36,18 @@ public class CommentModel {
     public void addComment(String commenterUsername, String comment, String profileUsername)
     {
         Date currentDate = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-        
-        Session session = cluster.connect("instagrim");
-        PreparedStatement ps = session.prepare("insert into usercomments (comment_id, commenter_username, comment, profile_username) Values(?,?,?,?)");
+        SimpleDateFormat format = new SimpleDateFormat("dd.MMMM.yyyy");
+        String postedDate = format.format(currentDate);
+        postedDate = postedDate.replace(".", " ");
         
         Convertors convertor = new Convertors();
         java.util.UUID commentID = convertor.getTimeUUID();
         
+        Session session = cluster.connect("instagrim");
+        PreparedStatement ps = session.prepare("insert into usercomments (comment_id, commenter_username, comment, profile_username, date_posted) Values(?,?,?,?,?)");
+       
         BoundStatement boundStatement = new BoundStatement(ps);
-        session.execute(boundStatement.bind(commentID, commenterUsername, comment, profileUsername));
+        session.execute(boundStatement.bind(commentID, commenterUsername, comment, profileUsername, postedDate));
     }
     
     public java.util.LinkedList<CommStore> getComments(String profileUsername) {
@@ -67,6 +69,7 @@ public class CommentModel {
                 comm.setComment(row.getString("comment"));
                 comm.setCommenter(row.getString("commenter_username"));
                 comm.setProfile(row.getString("profile_username"));
+                comm.setDatePosted(row.getString("date_posted"));
                 comment.add(comm);
             }
             return comment;

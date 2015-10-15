@@ -52,16 +52,11 @@
             <article>
                 <h1><%=userProfile.getUsername()%></h1>
                 <img class = "avatar" src="../images/avatar.png">
-                <ul>
-                    <li>Name: <%=userProfile.getFirstName()%> <%=userProfile.getLastName()%></li>
-                    <li>Joined on:  <%=userProfile.getJoinDate()%></li>
-                    <li>From: <%=userProfile.getCountry()%></li>
-                    <li>E-mail address: <%=userProfile.getEmail()%></li>
-                </ul>
+                
                 <% java.util.LinkedList<CommStore> comments = (java.util.LinkedList<CommStore>) request.getAttribute("comments"); %>
-                <table>
+                <table class="comments">
                     <tr>
-                        <th>Profile Comments</th>
+                        <th colspan="2">Profile Comments</th>
                     </tr>
                     <% if (comments == null) { %>
                     <tr> 
@@ -72,15 +67,34 @@
                         iterator = comments.iterator();
                         while (iterator.hasNext()) {
                             CommStore comm = (CommStore) iterator.next(); %>
-                    <tr>
-                        <td><%=comm.getCommenter()%></td>
-                        <td><%=comm.getComment()%></td>
+                    
+                    <tr class="topRow">
+                        <td class="commName"><%=comm.getCommenter()%> </td>
+                        <td class="datePosted"><%=comm.getDatePosted()%></td>
                     </tr>
+                    <tr class="bottomRow">
+                        <td colspan="2"><%=comm.getComment()%></td>
+                    </tr>
+                    
                     <%}
                     }%>
+                    <tr class="commentButton">
+                        <td> <a href="../Comment/<%=userProfile.getUsername()%>">leave a comment</a> </td>
+                    </tr>
                 </table>
                 
-                <a href="../Comment/<%=userProfile.getUsername()%>">leave a comment</a>
+                
+                
+                <ul class="profile">
+                    <hr>
+                    <li><%=userProfile.getFirstName()%> <%=userProfile.getLastName()%></li>
+                    <li>Joined on <%=userProfile.getJoinDate()%></li>
+                    <li>From <%=userProfile.getCountry()%></li>
+                    <li>E-mail address <%=userProfile.getEmail()%></li>
+                    <li><a href="/Instagrim/Images/<%=userProfile.getUsername()%>">Images</a></li>
+
+                    <hr>    
+                </ul>
                 
             </article>
         <footer>

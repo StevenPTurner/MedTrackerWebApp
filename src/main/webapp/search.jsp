@@ -45,7 +45,7 @@
                     }%>
             </ul>
         </nav>
-            <article>
+            <article class="article2">
                 <form method="POST"  action="Search">
                 <ul>          
                     <li>Search for: <input type="text" name="searchUsername"></li>

@@ -65,8 +65,6 @@ header h1 a{
     color:white;
 }
 
-
-
 article{
     z-index: 1;
     color:white;
@@ -83,6 +81,72 @@ article{
 
 
 
+.article2{
+    z-index: 1;
+    margin: auto;
+    margin-top: 200px;
+    width: 30%;
+    height: 20%;
+    padding: auto;
+    border-radius:20px;
+    padding-bottom: 30px;
+    padding-top: 10px;
+}
+
+.article2 li{
+    margin-left: -20px;
+}
+.comments{
+    //float: right;
+    display: inline-block;
+    position: relative;
+    text-align: left;
+    max-width: 300px;
+    margin-left: 300px;   
+}
+
+.comments a{
+    text-decoration: none;
+    color: white;
+    border: solid white 1px;
+    padding: 5px;
+}
+
+.comments a:hover{
+    background-color: grey;
+}
+
+tr.commentButton td {
+    padding-top: 20px;
+}
+tr.bottomRow td{
+    border-bottom: 1px solid white; 
+    padding-bottom: 10px;
+}
+
+tr.topRow td{
+   padding-top: 10px;
+}
+
+.comments th{
+    font-size: 20px;
+}
+
+.commName{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.datePosted {
+    font-size: 14px;
+    color: lightblue;
+}
+
+
+
+
+
+
 article ul li input{
     display: block;
 }
@@ -96,9 +160,21 @@ article p{
     margin-left: 20px;
 }
 article ul{
+    //position: relative;
+    //width: 200px;
     list-style-type:none;
-    margin-left:-20px;
+    //display: inline-block;
+    //margin-left:-20px;
+    //float: left;
 }
+
+.profile{
+    float: left;
+    clear: both;
+    margin-left: -20px;
+    margin-top: -20px;
+}
+
 article h1{
     padding: 20px 0px 20px 20px;
 }
@@ -141,6 +217,8 @@ footer{
 }
 
 .avatar{
+    position:relative;
+    float: left;
     max-height: 200px;
     max-width: 200px;
     margin-left: 20px;

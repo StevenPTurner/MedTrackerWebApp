@@ -16,6 +16,7 @@ public class CommStore {
     private String commenter = null;
     private String comment = null;
     private String profile = null;
+    private String datePosted = null;
     
     public void CommStore(){
     }
@@ -32,6 +33,10 @@ public class CommStore {
         this.profile = profile;
     }
     
+    public void setDatePosted(String datePosted){
+        this.datePosted = datePosted;
+    }
+    
     
     public String getCommenter() {
         return commenter;
@@ -43,6 +48,11 @@ public class CommStore {
     public String getprofile() {
         return profile;
     }
+    
+    public String getDatePosted() {
+        return datePosted;
+    }
+  
     
 }
 
