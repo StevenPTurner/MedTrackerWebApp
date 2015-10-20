@@ -1,16 +1,17 @@
 <%-- 
-    Document   : search
-    Created on : 08-Oct-2015, 12:45:02
+    Document   : allProfiles
+    Created on : 20-Oct-2015, 16:37:16
     Author     : steven
 --%>
 
+<%@page import="java.util.Iterator"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
 <!DOCTYPE html>
 <html class="background">
     <head>
         <title>Instagrim</title>
-        <link rel="stylesheet" type="text/css" href="   Styles.css" />
+        <link rel="stylesheet" type="text/css" href="Styles.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
@@ -23,6 +24,7 @@
 
                
                 <li><a href="upload.jsp">Upload</a></li>
+                <li><a href="/Instagrim/search.jsp">Search</a></li>
                     <%
                         
                         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
@@ -39,24 +41,28 @@
                                 %>
                  <li><a href="register.jsp">Register</a></li>
                 <li><a href="login.jsp">Login</a></li>
-                <%
-                                        
-                            
-                    }%>
+                <%}%>
             </ul>
         </nav>
-            <article class="article2">
-                <form method="POST"  action="Search">
-                    <ul>          
-                        <li>Search for: <input type="text" name="searchUsername"></li>
-                    </ul>
-                    <br/>
-                    <input class="button" type="submit" value="Search"> 
-                </form>
-                <li><a href="/Instagrim/UserList">Or view all profiles</a></li>
+            
+        <article class="article2">
+        <% java.util.LinkedList<UserProfile> allProfiles = (java.util.LinkedList<UserProfile>) request.getAttribute("allProfiles"); %>
+            <h1>All Profiles</h1>
+        <% if (allProfiles == null) { %>
+            <li>there are viewable profiles!</li>
+        <%} else { 
+            Iterator<UserProfile> iterator;
+            iterator = allProfiles.iterator();
+            while (iterator.hasNext()) {
+                UserProfile profile = (UserProfile) iterator.next(); %>
+            <li><a href="/Instagrim/Profile/<%=profile.getUsername()%>"><%=profile.getUsername()%>: <%=profile.getFirstName()%> <%=profile.getLastName()%></a></li>
+            <%}
+        }%>
+        
             
                 
-            </article>
+        </article> 
+            
         <footer>
             <ul>
                 <li>&COPY; Steven Turner</li>

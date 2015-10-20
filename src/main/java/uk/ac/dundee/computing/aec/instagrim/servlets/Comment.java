@@ -7,7 +7,6 @@ package uk.ac.dundee.computing.aec.instagrim.servlets;
 
 import com.datastax.driver.core.Cluster;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -33,7 +32,6 @@ public class Comment extends HttpServlet {
 
     public Comment()
     {
-        //super();
     }
     
     public void init(ServletConfig config) throws ServletException {
@@ -67,7 +65,7 @@ public class Comment extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        //used to set the profile variable then just redirects to comment.jsp page
         String args[] = Convertors.SplitRequestPath(request);
         profile = args[2];
         RequestDispatcher rd = request.getRequestDispatcher("/comment.jsp");
@@ -82,20 +80,24 @@ public class Comment extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    //used to post comment to the comment table
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
+        //gets logged in user to record who commented
         HttpSession session=request.getSession();
         LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
+        //gets users comment
         String comment = request.getParameter("comment");
         System.out.println(lg.getUsername() + " " + comment + " " +  profile);
         
+        //creates a Comment model and passes variable to insert into the database
+        //then redirects to the profile page  
         CommentModel addComm = new CommentModel();
         addComm.setCluster(cluster);
         addComm.addComment(lg.getUsername(), comment, profile);
          
-	response.sendRedirect("/Instagrim/Profile/" + profile);
     }
 
     /**

@@ -78,14 +78,14 @@ public class Search extends HttpServlet {
         
         String toSearch = request.getParameter("searchUsername");
         System.out.println(toSearch);
-        
+        //simply takes in string of user name from user to query database with search for user method
         User user = new User();
         user.setCluster(cluster);
         Boolean found = false;
         found = user.searchForUser(toSearch);
         
 
-        
+        //if found send to profile else back to homepage
         if(found == true) {
            response.sendRedirect("/Instagrim/Profile/" + toSearch);     
         }else if (found == false) {

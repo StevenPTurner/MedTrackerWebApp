@@ -17,8 +17,6 @@ import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import uk.ac.dundee.computing.aec.instagrim.lib.AeSimpleSHA1;
-import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
-import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
 import uk.ac.dundee.computing.aec.instagrim.stores.UserProfile;
 
 
@@ -33,8 +31,9 @@ public class User {
         
     }
     
-    //updated to take in more data apon login
-    public boolean RegisterUser(String username, String country, String first_name, String last_name,String email, String Password){
+    //updated to take in more data apon login including date signed up
+    public boolean RegisterUser(String username, String country, String first_name, String last_name,String email, String Password)
+    {
         AeSimpleSHA1 sha1handler=  new AeSimpleSHA1();
         
         //used to get sign up date and format it
@@ -51,11 +50,9 @@ public class User {
             return false;
         }
         
-        
         Session session = cluster.connect("instagrim");
         PreparedStatement ps = session.prepare("insert into userprofiles (login, country, first_name, joindate, last_name, email, password) Values(?,?,?,?,?,?,?)");
        
-        
         BoundStatement boundStatement = new BoundStatement(ps);
         session.execute( // this is where the query is executed
                 boundStatement.bind( // here you are binding the 'boundStatement'
@@ -65,6 +62,7 @@ public class User {
         return true;
     }
     
+    //updates uder profile row basic update query
     public void editUserProfile(String login, String first_name, String last_name, String country, String email)
     {
         // was going to be used to change user password
@@ -87,6 +85,7 @@ public class User {
     
     //used to get all user data from database into a bean 
     //was based on the IsValidUser method below
+    //sends bean back to profile servlet
     public UserProfile getUserProfile(String username){
         //sets up needed objects and the cql statements to read from database
         UserProfile userProfile = new UserProfile();
@@ -118,6 +117,7 @@ public class User {
         
     }
     
+    //searches for user profile and returns true if exists
     public boolean searchForUser(String username)
     {
         //UserProfile userProfile = new UserProfile();
@@ -125,9 +125,7 @@ public class User {
         PreparedStatement ps = session.prepare("select * from userprofiles where login=?");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
-        
         rs=session.execute(boundStatement.bind(username)); // executes statement
-        
         session.close();
         
         if (rs.isExhausted()) {
@@ -135,6 +133,33 @@ public class User {
             return false;
         }else{ 
             return true;
+        }
+    }
+    
+    public java.util.LinkedList<UserProfile> getAllProfiles(){
+        //sets up linked list of userProfile beans
+        java.util.LinkedList<UserProfile> allProfiles = new java.util.LinkedList<>();
+        Session session = cluster.connect("instagrim");
+        //gets all profiles in database
+        PreparedStatement ps = session.prepare("select * from userprofiles");
+        ResultSet rs = null;
+        BoundStatement boundStatement = new BoundStatement(ps);
+        rs=session.execute(boundStatement); // executes statement
+        session.close();
+        
+        //if no users
+        if (rs.isExhausted()) {
+            System.out.println("There are no users");
+            return null;
+        } else { //if it does fill comment bean and add to list
+            for (Row row : rs) {
+                UserProfile profile = new UserProfile();
+                profile.setUsername(row.getString("login"));
+                profile.setFirstName(row.getString("first_name"));
+                profile.setLastName(row.getString("last_name"));
+                allProfiles.add(profile); //add to linked list 
+            }
+            return allProfiles;
         }
     }
     

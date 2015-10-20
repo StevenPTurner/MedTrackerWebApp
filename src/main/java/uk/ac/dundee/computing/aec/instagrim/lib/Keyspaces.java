@@ -36,6 +36,7 @@ public final class Keyspaces {
                     + "pic_added timestamp,\n"
                     + "PRIMARY KEY (user,pic_added)\n"
                     + ") WITH CLUSTERING ORDER BY (pic_added desc);";
+            //modified and extended table for user details
             String CreateUserProfile = "CREATE TABLE if not exists instagrim.userprofiles (\n"
                     + "      login text PRIMARY KEY,\n"
                     + "      password text,\n"
@@ -45,6 +46,7 @@ public final class Keyspaces {
                     + "      country text,\n"
                     + "      joinDate text\n"
                     + "  );";
+            //created table to store user comments for profiles
             String CreateComments = "CREATE TABLE if not exists instagrim.usercomments (\n"
                     + "      comment_id uuid,\n"
                     + "      commenter_username text,\n"

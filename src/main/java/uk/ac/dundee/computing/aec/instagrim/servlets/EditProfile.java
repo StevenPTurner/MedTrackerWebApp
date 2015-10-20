@@ -7,7 +7,6 @@ package uk.ac.dundee.computing.aec.instagrim.servlets;
 
 import com.datastax.driver.core.Cluster;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -18,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
 import uk.ac.dundee.computing.aec.instagrim.models.User;
-import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 import uk.ac.dundee.computing.aec.instagrim.stores.UserProfile;
 
 /**
@@ -62,6 +60,7 @@ public class EditProfile extends HttpServlet {
             throws ServletException, IOException {
         //processRequest(request, response);
         
+        //used to get current details
         String args[] = Convertors.SplitRequestPath(request);
         
         User user = new User();
@@ -88,6 +87,7 @@ public class EditProfile extends HttpServlet {
 
        // String args[] = Convertors.SplitRequestPath(request);
         
+        //used to get details from form
         String country = request.getParameter("country");
        // String password = request.getParameter("password");
         String first_name = request.getParameter("first_name");
@@ -96,12 +96,13 @@ public class EditProfile extends HttpServlet {
         String login = request.getParameter("login");
         
         
-        
+        //sets up and calls the editUserProfile method
         User us=new User();
         us.setCluster(cluster);
         us.editUserProfile(login, first_name, last_name, country, email);
         System.out.println(login);
         
+        //sends user to edited profile
 	response.sendRedirect("/Instagrim/Profile/" + login);
     }
 

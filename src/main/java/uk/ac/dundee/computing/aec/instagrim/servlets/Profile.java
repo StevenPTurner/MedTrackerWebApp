@@ -7,17 +7,13 @@ package uk.ac.dundee.computing.aec.instagrim.servlets;
 
 import com.datastax.driver.core.Cluster;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
 import uk.ac.dundee.computing.aec.instagrim.stores.UserProfile;
@@ -74,12 +70,16 @@ public class Profile extends HttpServlet {
             throws ServletException, IOException {
         //method as based on the display image list in image servlet
         
-        String args[] = Convertors.SplitRequestPath(request);      
+        //sets up needed data 
+        String args[] = Convertors.SplitRequestPath(request);     
+        
+        //gets all user details to be displayed
         User user = new User();
         user.setCluster(cluster);
         UserProfile data = user.getUserProfile(args[2]);
         request.setAttribute("UserProfile",data);
         
+        //gets all the comments posted on their page to be displayed
         CommentModel profileComments = new CommentModel();     
         profileComments.setCluster(cluster);
         java.util.LinkedList<CommStore> profileComms = profileComments.getComments(args[2]);

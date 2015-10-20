@@ -12,6 +12,7 @@ package uk.ac.dundee.computing.aec.instagrim.stores;
  * @author steven
  */
 
+//bean used to store user data when taken from database
 public class UserProfile {
 
     private String username=null;

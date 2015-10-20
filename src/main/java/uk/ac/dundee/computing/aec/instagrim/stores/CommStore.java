@@ -11,6 +11,9 @@ package uk.ac.dundee.computing.aec.instagrim.stores;
  *
  * @author steven
  */
+
+//used to store comments when taken from database using a bean makes this easy
+//as it allows easy storage in a linked list
 public class CommStore {
 
     private String commenter = null;
