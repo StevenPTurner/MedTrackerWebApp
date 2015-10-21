@@ -41,7 +41,7 @@ public class CommentModel {
         java.util.UUID commentID = convertor.getTimeUUID();
         
         //simple insert into database
-        Session session = cluster.connect("instagrim");
+        Session session = cluster.connect("instagrim_swturner");
         PreparedStatement ps = session.prepare("insert into usercomments (comment_id, commenter_username, comment, profile_username, date_posted) Values(?,?,?,?,?)");
        
         BoundStatement boundStatement = new BoundStatement(ps);
@@ -54,7 +54,7 @@ public class CommentModel {
     {
         //sets up linked list of CommStore bean
         java.util.LinkedList<CommStore> comment = new java.util.LinkedList<>();
-        Session session = cluster.connect("instagrim");
+        Session session = cluster.connect("instagrim_swturner");
         //gets all comments from a specific user profile
         PreparedStatement ps = session.prepare("select * from usercomments where profile_username = ? ALLOW FILTERING");
         ResultSet rs = null;

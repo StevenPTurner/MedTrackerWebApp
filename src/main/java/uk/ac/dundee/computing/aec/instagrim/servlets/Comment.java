@@ -97,6 +97,10 @@ public class Comment extends HttpServlet {
         CommentModel addComm = new CommentModel();
         addComm.setCluster(cluster);
         addComm.addComment(lg.getUsername(), comment, profile);
+        
+       
+        System.out.println("Instagrim/Profile/" + profile);
+        response.sendRedirect("/Instagrim/Profile/" + profile);
          
     }
 

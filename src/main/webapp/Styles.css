@@ -142,8 +142,20 @@ tr.topRow td{
     color: lightblue;
 }
 
+ .allUsers a{
+    text-decoration: none;
+    color:lightblue;
+    margin-left: 40px;
+    margin-top: -20px;
+}
 
+.allUsers{
+    list-style-type: none;
+}
 
+.allUsers a:hover{
+    background-color: grey;
+}
 
 
 
@@ -173,6 +185,15 @@ article ul{
     clear: both;
     margin-left: -20px;
     margin-top: -20px;
+}
+
+.profile li a{
+    text-decoration: none;
+    color: lightblue;
+}
+
+.profile li a:hover{
+    background-color: grey;
 }
 
 article h1{

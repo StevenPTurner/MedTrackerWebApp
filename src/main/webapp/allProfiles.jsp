@@ -49,13 +49,13 @@
         <% java.util.LinkedList<UserProfile> allProfiles = (java.util.LinkedList<UserProfile>) request.getAttribute("allProfiles"); %>
             <h1>All Profiles</h1>
         <% if (allProfiles == null) { %>
-            <li>there are viewable profiles!</li>
+            <li>there are no viewable profiles!</li>
         <%} else { 
             Iterator<UserProfile> iterator;
             iterator = allProfiles.iterator();
             while (iterator.hasNext()) {
                 UserProfile profile = (UserProfile) iterator.next(); %>
-            <li><a href="/Instagrim/Profile/<%=profile.getUsername()%>"><%=profile.getUsername()%>: <%=profile.getFirstName()%> <%=profile.getLastName()%></a></li>
+            <li class="allUsers"><a href="/Instagrim/Profile/<%=profile.getUsername()%>"><%=profile.getUsername()%>: <%=profile.getFirstName()%> <%=profile.getLastName()%></a></li>
             <%}
         }%>
         
