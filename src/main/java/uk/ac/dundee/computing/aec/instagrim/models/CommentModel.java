@@ -62,7 +62,7 @@ public class CommentModel {
         rs=session.execute(boundStatement.bind(profileUsername)); // executes statement
         session.close();
         
-        // if user dosn't exist
+        // if user dosn't exist or has no comments
         if (rs.isExhausted()) {
             System.out.println("User has no comments");
             return null;

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package uk.ac.dundee.computing.aec.instagrim.servlets;
 
 import com.datastax.driver.core.Cluster;
@@ -44,11 +39,6 @@ public class Profile extends HttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -60,26 +50,23 @@ public class Profile extends HttpServlet {
     /**
      * Handles the HTTP <code>GET</code> method.
      *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //method as based on the display image list in image servlet
         
-        //sets up needed data 
+        //sets up needed data from URL
         String args[] = Convertors.SplitRequestPath(request);     
         
-        //gets all user details to be displayed
+        //gets all user details to be displayed in a bean
         User user = new User();
         user.setCluster(cluster);
         UserProfile data = user.getUserProfile(args[2]);
         request.setAttribute("UserProfile",data);
         
-        //gets all the comments posted on their page to be displayed
+        //gets all the comments posted on their page to be displayed in a link list
+        //thats returned from getComments method in the comments model
         CommentModel profileComments = new CommentModel();     
         profileComments.setCluster(cluster);
         java.util.LinkedList<CommStore> profileComms = profileComments.getComments(args[2]);
@@ -92,10 +79,6 @@ public class Profile extends HttpServlet {
     /**
      * Handles the HTTP <code>POST</code> method.
      *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

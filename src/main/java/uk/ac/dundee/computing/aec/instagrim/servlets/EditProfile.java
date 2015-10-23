@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package uk.ac.dundee.computing.aec.instagrim.servlets;
 
 import com.datastax.driver.core.Cluster;
@@ -35,11 +30,6 @@ public class EditProfile extends HttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -49,20 +39,15 @@ public class EditProfile extends HttpServlet {
     
     /**
      * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
         
         //used to get current details
         String args[] = Convertors.SplitRequestPath(request);
         
+        //used to get a profile bean of the users data to display
         User user = new User();
         user.setCluster(cluster);
         UserProfile data = user.getUserProfile(args[2]);     
@@ -75,21 +60,14 @@ public class EditProfile extends HttpServlet {
 
     /**
      * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-       // String args[] = Convertors.SplitRequestPath(request);
-        
         //used to get details from form
         String country = request.getParameter("country");
-       // String password = request.getParameter("password");
+        // String password = request.getParameter("password");
         String first_name = request.getParameter("first_name");
         String last_name = request.getParameter("last_name");
         String email = request.getParameter("email");
@@ -103,7 +81,7 @@ public class EditProfile extends HttpServlet {
         System.out.println(login);
         
         //sends user to edited profile
-	response.sendRedirect("/Instagrim/Profile/" + login);
+	response.sendRedirect("/InstagrimSWTurner/Profile/" + login);
     }
 
     /**

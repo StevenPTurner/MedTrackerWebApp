@@ -15,16 +15,16 @@
     </head>
     <body>
         <header>
-            <h1><a href="/Instagrim">InstaGrim!</a></h1>
+            <h1><a href="/InstagrimSWTurner">InstaGrim!</a></h1>
             <h2>Your world in Black and White</h2>
         </header>
         <nav>
             <ul>
                <% LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn"); %>
-                <li><a href="/Instagrim/Logout">Logout</a></li>
+                <li><a href="/InstagrimSWTurner/Logout">Logout</a></li>
                 <li class="nav"><a href="upload.jsp">Upload</a></li>
-                <li class="nav"><a href="/Instagrim/Images/majed">Sample Images</a></li>
-                <li><a href="/Instagrim/Profile/<%=lg.getUsername()%>">Your Profile</a></li>
+                <li class="nav"><a href="/InstagrimSWTurner/Images/majed">Sample Images</a></li>
+                <li><a href="/InstagrimSWTurner/Profile/<%=lg.getUsername()%>">Your Profile</a></li>
             </ul>
         </nav>
  

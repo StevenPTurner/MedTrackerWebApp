@@ -13,7 +13,7 @@ public final class Keyspaces {
 
     public static void SetUpKeySpaces(Cluster c) {
         try {
-            //Add some keyspaces here
+            //Sets up the keyspace 'instagrim_swturner' 
             String createkeyspace = "create keyspace if not exists instagrim_swturner  WITH replication = {'class':'SimpleStrategy', 'replication_factor':1}";
             String CreatePicTable = "CREATE TABLE if not exists instagrim_swturner.Pics ("
                     + " user varchar,"
@@ -36,7 +36,7 @@ public final class Keyspaces {
                     + "pic_added timestamp,\n"
                     + "PRIMARY KEY (user,pic_added)\n"
                     + ") WITH CLUSTERING ORDER BY (pic_added desc);";
-            //modified and extended table for user details
+            //modified and extended table for user details date is handled in model with ajva
             String CreateUserProfile = "CREATE TABLE if not exists instagrim_swturner.userprofiles (\n"
                     + "      login text PRIMARY KEY,\n"
                     + "      password text,\n"

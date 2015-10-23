@@ -14,7 +14,7 @@
     </head>
     <body>
         <header>
-        <h1><a href="/Instagrim">InstaGrim!</a></h1>
+        <h1><a href="/InstagrimSWTurner">InstaGrim!</a></h1>
         <h2>Your world in Black and White</h2>
         </header>
         <nav>

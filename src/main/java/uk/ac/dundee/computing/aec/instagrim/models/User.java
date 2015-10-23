@@ -36,7 +36,7 @@ public class User {
     {
         AeSimpleSHA1 sha1handler=  new AeSimpleSHA1();
         
-        //used to get sign up date and format it
+        //used to get sign up date and format it into needed format
         Date currentDate = new Date();
         SimpleDateFormat format = new SimpleDateFormat("dd.MMM.yyyy");
         String joindate = format.format(currentDate);
@@ -50,6 +50,7 @@ public class User {
             return false;
         }
         
+        //simple insert statement
         Session session = cluster.connect("instagrim_swturner");
         PreparedStatement ps = session.prepare("insert into userprofiles (login, country, first_name, joindate, last_name, email, password) Values(?,?,?,?,?,?,?)");
        
@@ -65,7 +66,7 @@ public class User {
     //updates uder profile row basic update query
     public void editUserProfile(String login, String first_name, String last_name, String country, String email)
     {
-        // was going to be used to change user password
+        // was going to be used to change user password if i had more time
         /*AeSimpleSHA1 sha1handler=  new AeSimpleSHA1();
         
         String EncodedPassword=null;
@@ -90,6 +91,7 @@ public class User {
         //sets up needed objects and the cql statements to read from database
         UserProfile userProfile = new UserProfile();
         Session session = cluster.connect("instagrim_swturner");
+        //gets the row of data where the needed login is
         PreparedStatement ps = session.prepare("select * from userprofiles where login=?");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
@@ -120,7 +122,7 @@ public class User {
     //searches for user profile and returns true if exists
     public boolean searchForUser(String username)
     {
-        //UserProfile userProfile = new UserProfile();
+       //searches for the user using select statement
         Session session = cluster.connect("instagrim_swturner");
         PreparedStatement ps = session.prepare("select * from userprofiles where login=?");
         ResultSet rs = null;
@@ -128,6 +130,7 @@ public class User {
         rs=session.execute(boundStatement.bind(username)); // executes statement
         session.close();
         
+        //return true if found false if not
         if (rs.isExhausted()) {
             System.out.println("User does not exist");
             return false;
@@ -151,7 +154,7 @@ public class User {
         if (rs.isExhausted()) {
             System.out.println("There are no users");
             return null;
-        } else { //if it does fill comment bean and add to list
+        } else { //if it does fill user bean and add to linked list
             for (Row row : rs) {
                 UserProfile profile = new UserProfile();
                 profile.setUsername(row.getString("login"));

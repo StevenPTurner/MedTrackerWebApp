@@ -15,13 +15,13 @@
     </head>
     <body>
         <header>
-        <h1><a href="/Instagrim">InstaGrim!</a></h1>
+        <h1><a href="/InstagrimSWTurner">InstaGrim!</a></h1>
         <h2>Your world in Black and White</h2>
         </header>
         <nav>
             <ul>
                 
-                <li><a href="/Instagrim/Images/majed">Sample Images</a></li>
+                <li><a href="/InstagrimSWTurner/Images/majed">Sample Images</a></li>
             </ul>
         </nav>
        <% LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");%>

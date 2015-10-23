@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package uk.ac.dundee.computing.aec.instagrim.servlets;
 
 import com.datastax.driver.core.Cluster;
@@ -36,11 +31,6 @@ public class Search extends HttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -51,11 +41,6 @@ public class Search extends HttpServlet {
     
     /**
      * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -65,11 +50,6 @@ public class Search extends HttpServlet {
 
     /**
      * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -78,7 +58,7 @@ public class Search extends HttpServlet {
         
         String toSearch = request.getParameter("searchUsername");
         System.out.println(toSearch);
-        //simply takes in string of user name from user to query database with search for user method
+        //simply takes in string of user name from user to query database with searchForUser method
         User user = new User();
         user.setCluster(cluster);
         Boolean found = false;
@@ -87,9 +67,9 @@ public class Search extends HttpServlet {
 
         //if found send to profile else back to homepage
         if(found == true) {
-           response.sendRedirect("/Instagrim/Profile/" + toSearch);     
+           response.sendRedirect("/InstagrimSWTurner/Profile/" + toSearch);     
         }else if (found == false) {
-           response.sendRedirect("/Instagrim");  
+           response.sendRedirect("/InstagrimSWTurner");  
         }
     }
 

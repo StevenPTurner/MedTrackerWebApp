@@ -16,13 +16,13 @@
     </head>
     <body>
         <header>
-            <h1><a href="/Instagrim">InstaGrim!</a> </h1>
+            <h1><a href="/InstagrimSWTurner">InstaGrim!</a> </h1>
             <h2>Your world in Black and White</h2>
         </header>
         <nav>
             <ul>
 
-                <li><a href="/Instagrim/Logout">Logout</a></li>
+                <li><a href="/InstagrimSWTurner/Logout">Logout</a></li>
                 <li><a href="upload.jsp">Upload</a></li>
                     <%
                         
@@ -32,12 +32,12 @@
                             String UserName = lg.getUsername();
                             if (lg.getlogedin()) {
                     %>
-                <li><a href="/Instagrim/Profile/<%=lg.getUsername()%>">Your Profile</a></li>
+                <li><a href="/InstagrimSWTurner/Profile/<%=lg.getUsername()%>">Your Profile</a></li>
                 
-                <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
+                <li><a href="/InstagrimSWTurner/Images/<%=lg.getUsername()%>">Your Images</a></li>
                     <!-- only .equals would work, no idea why-->
                     <%          if(UserName.equals(userProfile.getUsername())) { %>               
-                <li><a href="/Instagrim/EditProfile/<%=lg.getUsername()%>">Edit</a></li>
+                <li><a href="/InstagrimSWTurner/EditProfile/<%=lg.getUsername()%>">Edit</a></li>
                     <%          } 
                             } else {
                     %>
@@ -91,7 +91,7 @@
                     <li>Joined on <%=userProfile.getJoinDate()%></li>
                     <li>From <%=userProfile.getCountry()%></li>
                     <li>E-mail address <%=userProfile.getEmail()%></li>
-                    <li><a href="/Instagrim/Images/<%=userProfile.getUsername()%>">Images</a></li>
+                    <li><a href="/InstagrimSWTurner/Images/<%=userProfile.getUsername()%>">Images</a></li>
 
                     <hr>    
                 </ul>

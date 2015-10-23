@@ -15,7 +15,7 @@
     </head>
     <body>
         <header>
-            <h1><a href="/Instagrim">InstaGrim!</a> </h1>
+            <h1><a href="/InstagrimSWTurner">InstaGrim!</a> </h1>
             <h2>Your world in Black and White</h2>
         </header>
         <nav>
@@ -23,7 +23,7 @@
 
                
                 <li><a href="upload.jsp">Upload</a></li>
-                <li><a href="/Instagrim/search.jsp">Search</a></li>
+                <li><a href="/InstagrimSWTurner/search.jsp">Search</a></li>
                     <%
                         
                         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
@@ -31,9 +31,9 @@
                             String UserName = lg.getUsername();
                             if (lg.getlogedin()) {
                     %>
-                <li><a href="/Instagrim/Logout">Logout</a></li>
-                <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
-                <li><a href="/Instagrim/Profile/<%=lg.getUsername()%>">Your Profile</a></li>
+                <li><a href="/InstagrimSWTurner/Logout">Logout</a></li>
+                <li><a href="/InstagrimSWTurner/Images/<%=lg.getUsername()%>">Your Images</a></li>
+                <li><a href="/InstagrimSWTurner/Profile/<%=lg.getUsername()%>">Your Profile</a></li>
                 
                     <%}
                             }else{
@@ -57,7 +57,6 @@
                 <br/>
                 <input class = "button" type="submit" value="Post Comment"> 
             </form>
-
         </article>
             
         <footer>

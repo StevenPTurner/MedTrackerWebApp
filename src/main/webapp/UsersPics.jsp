@@ -12,21 +12,21 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Instagrim</title>
-        <link rel="stylesheet" type="text/css" href="/Instagrim/Styles.css" />
+        <link rel="stylesheet" type="text/css" href="/InstagrimSWTurner/Styles.css" />
     </head>
     <body>
         <header>
         
-        <h1><a href="/Instagrim">InstaGrim!</a></h1>
+        <h1><a href="/InstagrimSWTurner">InstaGrim!</a></h1>
         <h2>Your world in Black and White</h2>
         </header>
         
         <nav>
             <ul>
                 <% LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn"); %>
-                <li><a href="/Instagrim/Logout">Logout</a></li>
-                <li class="nav"><a href="/Instagrim/upload.jsp">Upload</a></li>
-                <li><a href="/Instagrim/Profile/<%=lg.getUsername()%>">Your Profile</a></li>
+                <li><a href="/InstagrimSWTurner/Logout">Logout</a></li>
+                <li class="nav"><a href="/InstagrimSWTurner/upload.jsp">Upload</a></li>
+                <li><a href="/InstagrimSWTurner/Profile/<%=lg.getUsername()%>">Your Profile</a></li>
                 
             </ul>
         </nav>
@@ -46,7 +46,7 @@
                 Pic p = (Pic) iterator.next();
 
         %>
-        <a href="/Instagrim/Image/<%=p.getSUUID()%>" ><img src="/Instagrim/Thumb/<%=p.getSUUID()%>"></a><br/><%
+        <a href="/InstagrimSWTurner/Image/<%=p.getSUUID()%>" ><img src="/InstagrimSWTurner/Thumb/<%=p.getSUUID()%>"></a><br/><%
 
             }
             }
