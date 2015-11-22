@@ -10,23 +10,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Instagrim</title>
+        <title>MedTracker</title>
         <link rel="stylesheet" type="text/css" href="Styles.css" />
-
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
-        <header class="topBar">
-            <h1><a href="/InstagrimSWTurner">InstaGrim!</a></h1>
-            <h2>Your world in Black and White</h2>
+        <header>
+            <h1><a href="/MedTracker">MedTracker</a> </h1>
         </header>
        
-            <h1 class="Error">Page not found 404 =( </h1>
-            <div class="homeButton "><a href="/InstagrimSWTurner">Go home</a></div>
-        <footer>
-            <ul>
-                 <li>&COPY; Steven Turner</li>
-            </ul>
-        </footer>
+            <h3>Page not found 404 =( </h3>
+            <a href="/MedTracker">Go home</a>
     </body>
 </html>

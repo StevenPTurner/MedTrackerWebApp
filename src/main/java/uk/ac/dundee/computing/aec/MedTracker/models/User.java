@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package uk.ac.dundee.computing.aec.instagrim.models;
+package uk.ac.dundee.computing.aec.MedTracker.models;
 
 import com.datastax.driver.core.BoundStatement;
 import com.datastax.driver.core.Cluster;
@@ -16,8 +16,8 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import uk.ac.dundee.computing.aec.instagrim.lib.AeSimpleSHA1;
-import uk.ac.dundee.computing.aec.instagrim.stores.UserProfile;
+import uk.ac.dundee.computing.aec.MedTracker.lib.AeSimpleSHA1;
+import uk.ac.dundee.computing.aec.MedTracker.stores.UserProfile;
 
 
 
@@ -32,7 +32,7 @@ public class User {
     }
     
     //updated to take in more data apon login including date signed up
-    public boolean RegisterUser(String username, String country, String first_name, String last_name,String email, String Password)
+    public boolean RegisterUser(String username, String first_name, String last_name,String email, String Password)
     {
         AeSimpleSHA1 sha1handler=  new AeSimpleSHA1();
         
@@ -51,20 +51,20 @@ public class User {
         }
         
         //simple insert statement
-        Session session = cluster.connect("instagrim_swturner");
-        PreparedStatement ps = session.prepare("insert into userprofiles (login, country, first_name, joindate, last_name, email, password) Values(?,?,?,?,?,?,?)");
+        Session session = cluster.connect("MedTracker");
+        PreparedStatement ps = session.prepare("insert into userprofiles (login, password, first_name, last_name, email, joindate) Values(?,?,?,?,?,?)");
        
         BoundStatement boundStatement = new BoundStatement(ps);
         session.execute( // this is where the query is executed
                 boundStatement.bind( // here you are binding the 'boundStatement'
-                        username, country, first_name, joindate, last_name, email, EncodedPassword));
+                        username, EncodedPassword, first_name, last_name, email, joindate));
         //We are assuming this always works.  Also a transaction would be good here !
         
         return true;
     }
     
     //updates uder profile row basic update query
-    public void editUserProfile(String login, String first_name, String last_name, String country, String email)
+    public void editUserProfile(String login, String first_name, String last_name, String email)
     {
         // was going to be used to change user password if i had more time
         /*AeSimpleSHA1 sha1handler=  new AeSimpleSHA1();
@@ -77,11 +77,11 @@ public class User {
             return false;
         }*/
         
-        Session session = cluster.connect("instagrim_swturner");
-        PreparedStatement ps = session.prepare("update userprofiles set first_name = ?, last_name = ?, country = ?, email = ? where login = ?");
+        Session session = cluster.connect("MedTracker");
+        PreparedStatement ps = session.prepare("update userprofiles set first_name = ?, last_name = ?, email = ? where login = ?");
            
         BoundStatement boundStatement = new BoundStatement(ps);
-        session.execute(boundStatement.bind(first_name, last_name, country, email, login));
+        session.execute(boundStatement.bind(first_name, last_name, email, login));
     }
     
     //used to get all user data from database into a bean 
@@ -90,7 +90,7 @@ public class User {
     public UserProfile getUserProfile(String username){
         //sets up needed objects and the cql statements to read from database
         UserProfile userProfile = new UserProfile();
-        Session session = cluster.connect("instagrim_swturner");
+        Session session = cluster.connect("MedTracker");
         //gets the row of data where the needed login is
         PreparedStatement ps = session.prepare("select * from userprofiles where login=?");
         ResultSet rs = null;
@@ -110,7 +110,6 @@ public class User {
                 userProfile.setEmail(row.getString("email"));
                 userProfile.setFirstName(row.getString("first_name"));
                 userProfile.setLastName(row.getString("last_name"));
-                userProfile.setCountry(row.getString("country"));
                 userProfile.setLastName(row.getString("last_name"));
                 userProfile.setJoinDate(row.getString("joindate"));
             }
@@ -119,52 +118,6 @@ public class User {
         
     }
     
-    //searches for user profile and returns true if exists
-    public boolean searchForUser(String username)
-    {
-       //searches for the user using select statement
-        Session session = cluster.connect("instagrim_swturner");
-        PreparedStatement ps = session.prepare("select * from userprofiles where login=?");
-        ResultSet rs = null;
-        BoundStatement boundStatement = new BoundStatement(ps);
-        rs=session.execute(boundStatement.bind(username)); // executes statement
-        session.close();
-        
-        //return true if found false if not
-        if (rs.isExhausted()) {
-            System.out.println("User does not exist");
-            return false;
-        }else{ 
-            return true;
-        }
-    }
-    
-    public java.util.LinkedList<UserProfile> getAllProfiles(){
-        //sets up linked list of userProfile beans
-        java.util.LinkedList<UserProfile> allProfiles = new java.util.LinkedList<>();
-        Session session = cluster.connect("instagrim_swturner");
-        //gets all profiles in database
-        PreparedStatement ps = session.prepare("select * from userprofiles");
-        ResultSet rs = null;
-        BoundStatement boundStatement = new BoundStatement(ps);
-        rs=session.execute(boundStatement); // executes statement
-        session.close();
-        
-        //if no users
-        if (rs.isExhausted()) {
-            System.out.println("There are no users");
-            return null;
-        } else { //if it does fill user bean and add to linked list
-            for (Row row : rs) {
-                UserProfile profile = new UserProfile();
-                profile.setUsername(row.getString("login"));
-                profile.setFirstName(row.getString("first_name"));
-                profile.setLastName(row.getString("last_name"));
-                allProfiles.add(profile); //add to linked list 
-            }
-            return allProfiles;
-        }
-    }
     
     public boolean IsValidUser(String username, String Password){
         AeSimpleSHA1 sha1handler=  new AeSimpleSHA1();
@@ -175,7 +128,7 @@ public class User {
             System.out.println("Can't check your password");
             return false;
         }
-        Session session = cluster.connect("instagrim_swturner");
+        Session session = cluster.connect("MedTracker");
         PreparedStatement ps = session.prepare("select password from userprofiles where login =?");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);

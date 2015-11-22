@@ -1,33 +1,20 @@
-package uk.ac.dundee.computing.aec.instagrim.servlets;
+package uk.ac.dundee.computing.aec.MedTracker.servlets;
 
-import com.datastax.driver.core.Cluster;
 import java.io.IOException;
-import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
-import uk.ac.dundee.computing.aec.instagrim.models.User;
 
 /**
  *
  * @author steven
+ * used to log users out
  */
-@WebServlet(name = "Search", urlPatterns = {"/Search"})
-public class Search extends HttpServlet {
+@WebServlet(name = "Logout", urlPatterns = {"/Logout"})
+public class Logout extends HttpServlet {
 
-    
-    Cluster cluster = null;
-    
-    public void init(ServletConfig config) throws ServletException {
-        // TODO Auto-generated method stub
-        cluster = CassandraHosts.getCluster();
-    }
-    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -35,7 +22,7 @@ public class Search extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-       
+        
     }
 
     
@@ -46,6 +33,11 @@ public class Search extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        //invalidates the session and sends user to logged out screen
+        //to let them know what happened
+        request.getSession().invalidate();
+        response.sendRedirect("/MedTracker/loggedout.jsp");
+        
     }
 
     /**
@@ -55,22 +47,6 @@ public class Search extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
-        String toSearch = request.getParameter("searchUsername");
-        System.out.println(toSearch);
-        //simply takes in string of user name from user to query database with searchForUser method
-        User user = new User();
-        user.setCluster(cluster);
-        Boolean found = false;
-        found = user.searchForUser(toSearch);
-        
-
-        //if found send to profile else back to homepage
-        if(found == true) {
-           response.sendRedirect("/InstagrimSWTurner/Profile/" + toSearch);     
-        }else if (found == false) {
-           response.sendRedirect("/InstagrimSWTurner");  
-        }
     }
 
     /**

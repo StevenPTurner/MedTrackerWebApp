@@ -5,29 +5,22 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
+<%@page import="uk.ac.dundee.computing.aec.MedTracker.stores.*" %>
 <!DOCTYPE html>
-<html class="background">
+<html>
     <head>
+        <title>MedTracker</title>
+        <link rel="stylesheet" type="text/css" href="Styles.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Instagrim</title>
-        <link rel="stylesheet" type="text/css" href="../Styles.css" />
     </head>
     <body>
         <header>
-        <h1><a href="/InstagrimSWTurner">InstaGrim!</a></h1>
-        <h2>Your world in Black and White</h2>
+            <h1><a href="/MedTracker">MedTracker</a> </h1>
         </header>
-        <nav>
-            <ul>
-                
-                <li><a href="/InstagrimSWTurner/Images/majed">Sample Images</a></li>
-            </ul>
-        </nav>
+        
        <% LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");%>
        <% String UserName = lg.getUsername(); %>
        <%  UserProfile userProfile = (UserProfile) request.getAttribute("UserProfile"); %>
-        <article>
             
             <h3>Edit your profile: <%=lg.getUsername() %></h3>
             
@@ -35,10 +28,9 @@
             <form method="POST"  action="Profile/<%=lg.getUsername() %>">
                 <ul>
                     <input type="hidden" name="login" value="<%=lg.getUsername() %>" readonly="readonly"></li>
-                    <li>First Name<input type="text" name="first_name"></li>
-                    <li>Last Name <input type="text" name="last_name"></li>
-                    <li>Country   <input type="text" name="country"></li>
-                    <li>E-mail    <input type ="email" name="email"</li>
+                    <li>First Name<input type="text" name="first_name" value="<%=userProfile.getFirstName()%>"></li>
+                    <li>Last Name <input type="text" name="last_name" value="<%=userProfile.getLastName()%>"></li>
+                    <li>E-mail    <input type ="email" name="email" value="<%=userProfile.getEmail()%>"</li>
                     <!--<li>Password  <input type="password" name="password"></li>-->
                 </ul>
                 <br/>
@@ -47,11 +39,5 @@
             <% } else { %>
             <h3> ERROR not your profile </h3>
             <%}%>
-        </article>
-        <footer>
-            <ul>
-                 <li>&COPY; Steven Turner</li>
-            </ul>
-        </footer>
     </body>
 </html>

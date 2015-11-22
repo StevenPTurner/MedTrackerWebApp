@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package uk.ac.dundee.computing.aec.instagrim.servlets;
+package uk.ac.dundee.computing.aec.MedTracker.servlets;
 
 import com.datastax.driver.core.Cluster;
 import java.io.IOException;
@@ -17,9 +17,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
-import uk.ac.dundee.computing.aec.instagrim.models.User;
-import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
+import uk.ac.dundee.computing.aec.MedTracker.lib.CassandraHosts;
+import uk.ac.dundee.computing.aec.MedTracker.models.User;
+import uk.ac.dundee.computing.aec.MedTracker.stores.LoggedIn;
 
 /**
  *
@@ -65,10 +65,17 @@ public class Login extends HttpServlet {
             session.setAttribute("LoggedIn", lg);
             System.out.println("Session in servlet "+session);
             RequestDispatcher rd=request.getRequestDispatcher("index.jsp");
+            //response.sendRedirect("index.jsp");
 	    rd.forward(request,response);
             
         }else{
-            response.sendRedirect("/InstagrimSWTurner/login.jsp");
+            request.setAttribute("error", "Wrong password or username!");
+            RequestDispatcher rd=request.getRequestDispatcher("login.jsp");
+            rd.forward(request,response);
+            
+            
+            //response.sendRedirect("/MedTracker/login.jsp");
+            
             
         }
         

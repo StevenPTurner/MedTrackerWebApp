@@ -1,11 +1,12 @@
 <%-- 
-    Document   : loggedout
-    Created on : 04-Oct-2015, 11:19:27
-    Author     : steven
+    Document   : index
+    Created on : Sep 28, 2014, 7:01:44 PM
+    Author     : Administrator
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="uk.ac.dundee.computing.aec.MedTracker.stores.*" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,8 +18,9 @@
         <header>
             <h1><a href="/MedTracker">MedTracker</a> </h1>
         </header>
-       
-            <h3>You have been logged out!</h3>
-            <a href="/MedTracker/">Go home</a>
+        <h3>About</h3>
+        <p>MedTracker is an application that lets user track their medicine</p>
+        <footer>
+        </footer>
     </body>
 </html>

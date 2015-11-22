@@ -1,4 +1,4 @@
-package uk.ac.dundee.computing.aec.instagrim.servlets;
+package uk.ac.dundee.computing.aec.MedTracker.servlets;
 
 import com.datastax.driver.core.Cluster;
 import java.io.IOException;
@@ -9,79 +9,72 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
-import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
-import uk.ac.dundee.computing.aec.instagrim.models.User;
-import uk.ac.dundee.computing.aec.instagrim.stores.UserProfile;
+import uk.ac.dundee.computing.aec.MedTracker.lib.CassandraHosts;
+import uk.ac.dundee.computing.aec.MedTracker.lib.Convertors;
+import uk.ac.dundee.computing.aec.MedTracker.stores.UserProfile;
+import uk.ac.dundee.computing.aec.MedTracker.models.User;
 
 /**
  *
  * @author steven
  */
-@WebServlet(name = "EditProfile", urlPatterns = {"/EditProfile/*"})
-public class EditProfile extends HttpServlet {
+@WebServlet(name = "Account", urlPatterns = {"/Account", "/Account/*"})
+public class Account extends HttpServlet {
+
     
-    Cluster cluster = null;
+    private Cluster cluster;
+
+    public Account()
+    {
+        //super();
+    }
     
     public void init(ServletConfig config) throws ServletException {
         // TODO Auto-generated method stub
         cluster = CassandraHosts.getCluster();
     }
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+        RequestDispatcher rd = request.getRequestDispatcher("/account.jsp");
+        rd.forward(request,response);
     }
 
     
     /**
      * Handles the HTTP <code>GET</code> method.
+     *
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //method as based on the display image list in image servlet
         
-        //used to get current details
-        String args[] = Convertors.SplitRequestPath(request);
+        //sets up needed data from URL
+        String args[] = Convertors.SplitRequestPath(request);     
         
-        //used to get a profile bean of the users data to display
+        //gets all user details to be displayed in a bean
         User user = new User();
         user.setCluster(cluster);
-        UserProfile data = user.getUserProfile(args[2]);     
+        UserProfile data = user.getUserProfile(args[2]);
         request.setAttribute("UserProfile",data);
-
         
-        RequestDispatcher rd = request.getRequestDispatcher("/edit.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/account.jsp");
         rd.forward(request,response);
     }
 
     /**
      * Handles the HTTP <code>POST</code> method.
+     *
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        //used to get details from form
-        String country = request.getParameter("country");
-        // String password = request.getParameter("password");
-        String first_name = request.getParameter("first_name");
-        String last_name = request.getParameter("last_name");
-        String email = request.getParameter("email");
-        String login = request.getParameter("login");
-        
-        
-        //sets up and calls the editUserProfile method
-        User us=new User();
-        us.setCluster(cluster);
-        us.editUserProfile(login, first_name, last_name, country, email);
-        System.out.println(login);
-        
-        //sends user to edited profile
-	response.sendRedirect("/InstagrimSWTurner/Profile/" + login);
+        processRequest(request, response);
     }
 
     /**
