@@ -25,7 +25,7 @@
                         String UserName = lg.getUsername();
                         if (lg.getlogedin()) {
                 %>
-                <li><a href="">MY Meds</a></li>
+                <li><a href="/MedTracker/MyMeds/<%=lg.getUsername()%>">MY Meds</a></li>
                 <li><a href="/MedTracker/Account/<%=lg.getUsername()%>">My Account</a></li>
                 <li><a href="/MedTracker/Logout">Logout</a>
                 

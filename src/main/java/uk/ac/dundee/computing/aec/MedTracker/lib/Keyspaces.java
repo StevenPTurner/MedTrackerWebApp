@@ -28,6 +28,7 @@ public final class Keyspaces {
             String CreateMedicine = "CREATE TABLE if not exists MedTracker.Medicine (\n"
                     + "      login text,\n"
                     + "      medicine_name text,\n"
+                    + "      instructions text,\n"
                     + "      dose int,\n"
                     + "      last_taken timestamp,\n"
                     + "      PRIMARY KEY (login, medicine_name)"
