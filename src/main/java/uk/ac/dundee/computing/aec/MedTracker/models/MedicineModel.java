@@ -123,6 +123,19 @@ public class MedicineModel {
             return med;
         }
     }
+    
+    public void deleteMed(UUID id)
+    {
+        Session session = cluster.connect("MedTracker");
+        //gets the row of data where the needed login is
+        PreparedStatement ps = session.prepare("DELETE from medicine where id=?");
+        ResultSet rs = null;
+        BoundStatement boundStatement = new BoundStatement(ps);
+        
+       rs=session.execute(boundStatement.bind(id)); // executes statement
+        
+        session.close();
+    }
     public void setCluster(Cluster cluster) {
         this.cluster = cluster;
     }
