@@ -21,8 +21,11 @@
         <%LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
         java.util.LinkedList<Medicine> myMeds = (java.util.LinkedList<Medicine>) request.getAttribute("meds"); %>
         <h3>Your medicines</h3>
-        <table>
-            <tr>
+        <table border="solid 1px black">
+            <% if (myMeds == null) { %>
+            <tr><h3>You have no medicines on your account </h3></td></tr>
+            <%} else { %>
+             <tr>
                 <Th>Username</Th>
                 <Th>Medicine</Th>
                 <Th>Dose</Th>
@@ -31,10 +34,9 @@
                 <Th>Last Taken</Th>
                 <Th>Time Between Doses</Th>
             <tr>
-            <% if (myMeds == null) { %>
-            <tr><h3>You have no medicines on your account </h3></td></tr>
-            <%} else { 
-                Iterator<Medicine> iterator;
+            
+                
+               <% Iterator<Medicine> iterator;
                 iterator = myMeds.iterator();
                 while (iterator.hasNext()) {
                     Medicine med = (Medicine) iterator.next(); %>

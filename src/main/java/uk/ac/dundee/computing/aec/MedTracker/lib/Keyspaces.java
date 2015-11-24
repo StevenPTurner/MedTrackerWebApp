@@ -34,7 +34,7 @@ public final class Keyspaces {
                     + "      time_between int,\n"
                     + "      doses_left int,\n"
                     + "      last_taken timestamp,\n"
-                    + "      PRIMARY KEY (login, medicine_name)"
+                    + "      PRIMARY KEY (id, login, medicine_name)"
                     + "  );";
             Session session = c.connect();
             try {

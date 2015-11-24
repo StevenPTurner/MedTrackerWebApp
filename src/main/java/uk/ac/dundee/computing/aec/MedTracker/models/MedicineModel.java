@@ -35,7 +35,7 @@ public class MedicineModel {
         java.util.LinkedList<Medicine> allMeds = new java.util.LinkedList<>();
         Session session = cluster.connect("MedTracker");
         //gets all meds in database
-        PreparedStatement ps = session.prepare("select * from Medicine where login = ?");
+        PreparedStatement ps = session.prepare("select * from Medicine where login = ? ALLOW FILTERING");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
         rs=session.execute(boundStatement.bind(username)); // executes statement
@@ -83,27 +83,25 @@ public class MedicineModel {
         return true;
     }
     
-    public void editMedicine(String username, String medicine_name, String instructions, int dose)
+    public void editMedicine(String username, String medicine_name, UUID id, String instructions, int dose, int time_between)
     {
         Session session = cluster.connect("MedTracker");
-        PreparedStatement ps = session.prepare("update medicine set dose = ?, instructions = ?, where login = ? AND medicine_name = ?");
+        PreparedStatement ps = session.prepare("update medicine set instructions = ?, dose = ?, time_between=? where id = ? AND login = ? AND medicine_name=?");
            
         BoundStatement boundStatement = new BoundStatement(ps);
-        session.execute(boundStatement.bind(dose, instructions));  
+        session.execute(boundStatement.bind(instructions, dose, time_between, id, username, medicine_name));  
     }
     
-    public Medicine getUserMedicine(String username, String medicine_name){
+    public Medicine getUserMedicine(UUID id){
         //sets up needed objects and the cql statements to read from database
         Medicine med = new Medicine();
         Session session = cluster.connect("MedTracker");
         //gets the row of data where the needed login is
-        PreparedStatement ps = session.prepare("select * from userprofiles where login=? AND medicine_name = ?");
+        PreparedStatement ps = session.prepare("select * from medicine where id=?");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
         
-        
-        
-       rs=session.execute(boundStatement.bind(username, medicine_name)); // executes statement
+       rs=session.execute(boundStatement.bind(id)); // executes statement
         
         session.close();
         
@@ -113,11 +111,14 @@ public class MedicineModel {
             return null;
         } else { //if it does fill profile bean
             for (Row row :rs) {
-                med.setUsername(username);
+                med.setUsername(row.getString("login"));
                 med.setMedicineName(row.getString("medicine_name"));
                 med.setDose(row.getInt("dose"));
+                med.setDoseLeft(row.getInt("doses_left"));
+                med.setID(row.getUUID("id"));
                 med.setInstructions(row.getString("instructions"));
-                med.setLastTaken(row.getDate("last_taken"));
+                med.setLastTaken(row.getDate("last_Taken"));
+                med.setTimeBetween(row.getInt("time_between"));
             }
             return med;
         }

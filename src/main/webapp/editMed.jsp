@@ -18,18 +18,20 @@
             <h1><a href="/MedTracker">MedTracker</a> </h1>
         </header>
             
-        <% //LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");%>
-       <%//Medicine userMed = (Medicine) request.getAttribute("userMed"); %>
+        <% LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");%>
+       <%Medicine userMed = (Medicine) request.getAttribute("userMed"); %>
             
             <h3>Edit Medicine</h3>
             
             
-            <form method="POST"  action="EditMed/<%//=lg.getUsername()%>/<%//=userMed.getMedicineName()%>">
+            <form method="POST"  action="EditMed/<%=userMed.getID()%>">
                 <ul>
-                    <input type="hidden" name="login" value="<%//=lg.getUsername() %>" readonly="readonly"></li>
-                    <input type="hidden" name="medicine_name" value="<%//=userMed.getMedicineName() %>" readonly="readonly"></li>
-                    <li>First Name<input type="text" name="first_name" value="<%//=userMed.getInstructions()%>"></li>
-                    <li>Last Name <input type="text" name="last_name" value="<%//=userMed.getDose()%>"></li>
+                    <input type="hidden" name="login" value="<%=userMed.getUsername() %>" readonly="readonly"></li>
+                    <input type="hidden" name="id" value="<%=userMed.getID() %>" readonly="readonly"></li>
+                    <input type="hidden" name="medicine_name" value="<%=userMed.getMedicineName() %>" readonly="readonly"></li>
+                    <li>Instructions<input type="text" name="instructions" value="<%=userMed.getInstructions()%>"></li>
+                    <li>Dose <input type="text" name="dose" value="<%=userMed.getDose()%>"></li>
+                    <li>Time Between Doses <input type="text" name="time_between" value="<%=userMed.getTimeBetween()%>"></li>
                 </ul>
                 <br/>
                 <input class="button" type="submit" value="Edit Details"> 

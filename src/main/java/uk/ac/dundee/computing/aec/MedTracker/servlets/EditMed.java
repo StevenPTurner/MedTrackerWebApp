@@ -8,6 +8,7 @@ package uk.ac.dundee.computing.aec.MedTracker.servlets;
 import com.datastax.driver.core.Cluster;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.UUID;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -51,12 +52,13 @@ public class EditMed extends HttpServlet {
              //used to get current details
         String args[] = Convertors.SplitRequestPath(request);
         
-        System.out.println("username" + args[2]);
-        System.out.println("medicine_name" + args[3]);
+        UUID id = UUID.fromString(args[2]);
+        
+        System.out.println(id);
         //used to get a profile bean of the users data to display
         MedicineModel medM = new MedicineModel();
         medM.setCluster(cluster);
-        Medicine med = medM.getUserMedicine(args[2], args[3]);     
+        Medicine med = medM.getUserMedicine(id);     
         request.setAttribute("userMed",med);
 
         
@@ -75,7 +77,23 @@ public class EditMed extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //used to get details from form
+        // String password = request.getParameter("password");
+        String username = request.getParameter("login");
+        String medicine_name = request.getParameter("medicine_name");
+        UUID id = UUID.fromString(request.getParameter("id"));
+        String instructions = request.getParameter("instructions");
+        int dose = Integer.parseInt(request.getParameter("dose"));
+        int time_between = Integer.parseInt(request.getParameter("time_between"));
+
+        //sets up and calls the editUserProfile method
+        MedicineModel medM = new MedicineModel();
+        medM.setCluster(cluster);
+        medM.editMedicine(username, medicine_name, id, instructions, dose, time_between);
+       
+        
+        //sends user to edited profile
+	response.sendRedirect("/MedTracker/MyMeds/" + username);
     }
 
     /**
