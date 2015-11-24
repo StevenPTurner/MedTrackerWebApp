@@ -8,6 +8,7 @@ package uk.ac.dundee.computing.aec.MedTracker.servlets;
 import com.datastax.driver.core.Cluster;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,17 +16,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import uk.ac.dundee.computing.aec.MedTracker.lib.CassandraHosts;
+import uk.ac.dundee.computing.aec.MedTracker.lib.Convertors;
 import uk.ac.dundee.computing.aec.MedTracker.models.MedicineModel;
+import uk.ac.dundee.computing.aec.MedTracker.stores.Medicine;
 
 /**
  *
  * @author steven
  */
-@WebServlet(name = "AddNewMed", urlPatterns = {"/AddNewMed"})
-public class AddNewMed extends HttpServlet {
+@WebServlet(name = "EditMed", urlPatterns = {"/EditMed/*"})
+public class EditMed extends HttpServlet {
 
+    Cluster cluster = null;
     
-     Cluster cluster=null;
     public void init(ServletConfig config) throws ServletException {
         // TODO Auto-generated method stub
         cluster = CassandraHosts.getCluster();
@@ -38,37 +41,41 @@ public class AddNewMed extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
-
+    
     /**
      * Handles the HTTP <code>GET</code> method.
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+             //used to get current details
+        String args[] = Convertors.SplitRequestPath(request);
+        
+        System.out.println("username" + args[2]);
+        System.out.println("medicine_name" + args[3]);
+        //used to get a profile bean of the users data to display
+        MedicineModel medM = new MedicineModel();
+        medM.setCluster(cluster);
+        Medicine med = medM.getUserMedicine(args[2], args[3]);     
+        request.setAttribute("userMed",med);
+
+        
+        RequestDispatcher rd = request.getRequestDispatcher("/editMed.jsp");
+        rd.forward(request,response);
     }
 
     /**
      * Handles the HTTP <code>POST</code> method.
      *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        //extended and modified what data it takes in
-        String username = request.getParameter("login");
-        String medicine_name = request.getParameter("medicine_name");
-        int dose = Integer.parseInt(request.getParameter("dose"));
-        int doses_left = Integer.parseInt(request.getParameter("doses_left"));
-        String instructions = request.getParameter("instructions");
-        int timeBetween = Integer.parseInt(request.getParameter("time_between"));
-        
-        MedicineModel med = new MedicineModel();
-        med.setCluster(cluster);
-        med.addNewMed(username, medicine_name, dose, doses_left, instructions, timeBetween);
-        
-        response.sendRedirect("/MedTracker/MyMeds/" + username);
+        processRequest(request, response);
     }
 
     /**

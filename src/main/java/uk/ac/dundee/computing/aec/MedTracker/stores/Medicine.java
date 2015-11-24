@@ -6,6 +6,7 @@
 package uk.ac.dundee.computing.aec.MedTracker.stores;
 
 import java.util.Date;
+import java.util.UUID;
 
 
 
@@ -15,11 +16,15 @@ import java.util.Date;
  */
 public class Medicine {
 
+    private UUID id = null;
     private String username = null;
     private String medicineName = null;
     private String instructions = null;
     private int dose = 0;
+    private int doseLeft = 0;
+    private int timeBetween = 0;
     private Date lastTaken = null;
+    
     
     public void Medicine()
     {
@@ -46,9 +51,26 @@ public class Medicine {
         this.lastTaken=lastTaken;
     }
     
-    public String getUsername()
+    public void setID(UUID id){
+        this.id=id;
+    }
+    
+    public void setDoseLeft(int doseLeft){
+        this.doseLeft=doseLeft;
+    }
+    
+    public void setTimeBetween(int timeBetween){
+        this.timeBetween = timeBetween;
+    }
+    
+    public UUID getID()
     {
-        return username;
+        return id;
+    }
+    
+    public int getDosesLeft()
+    {
+        return doseLeft;
     }
     
     public String getMedicineName()
@@ -66,9 +88,21 @@ public class Medicine {
         return dose;
     }
     
+    public String getUsername()
+    {
+        return username;
+    }
+    
     public Date getLastTaken()
     {
         return lastTaken;
     }
+    
+    public int getTimeBetween()
+    {
+        return timeBetween;
+    }
+    
+    
     
 }

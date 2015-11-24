@@ -26,8 +26,10 @@
                 <ul>
                     <input type="hidden" name="login" value="<%=lg.getUsername() %>" readonly="readonly"></li>
                     <li>Medicine Name<input type="text" name="medicine_name"></li>
+                    <li>Dose (in mg) <input type="text" name="dose"></li>
+                    <li>Doses Per Prescription<input type="text" name="doses_left"></li>
                     <li>Instructions <input type="text" name="instructions"></li>
-                    <li>Dose(Per pill) <input type="number" name="dose"></li>
+                    <li>Time Between Doses In Hours<input type="text" name="time_between"></li>
                 </ul>
                 <br/>
                 <input class="button" type="submit" value="Add medicine"> 

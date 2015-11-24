@@ -25,7 +25,7 @@
             <h3>Edit your profile: <%=lg.getUsername() %></h3>
             
             <% if(UserName.equals(userProfile.getUsername())) { %>
-            <form method="POST"  action="Profile/<%=lg.getUsername() %>">
+            <form method="POST"  action="EditAccount/<%=lg.getUsername() %>">
                 <ul>
                     <input type="hidden" name="login" value="<%=lg.getUsername() %>" readonly="readonly"></li>
                     <li>First Name<input type="text" name="first_name" value="<%=userProfile.getFirstName()%>"></li>

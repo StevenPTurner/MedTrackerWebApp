@@ -26,8 +26,10 @@
                 <Th>Username</Th>
                 <Th>Medicine</Th>
                 <Th>Dose</Th>
+                <Th>Doses Left</Th>
                 <Th>Instructions</Th>
                 <Th>Last Taken</Th>
+                <Th>Time Between Doses</Th>
             <tr>
             <% if (myMeds == null) { %>
             <tr><h3>You have no medicines on your account </h3></td></tr>
@@ -40,16 +42,19 @@
                 <td><%=med.getUsername()%> </td>
                 <td><%=med.getMedicineName()%> </td>
                 <td><%=med.getDose()%> </td>
+                <td><%=med.getDosesLeft()%> </td>
                 <td><%=med.getInstructions()%> </td>
                 <td><%=med.getLastTaken()%> </td>
-                <td><a href="/MedTracker/EditMed/<%=med.getUsername()%>/<%=med.getMedicineName()%>">Edit</a></td>
-                <td><a hred="/MedTracker/DeleteMed/<%=med.getUsername()%>/<%=med.getMedicineName()%>">Delete</a></td>
+                <td><%=med.getTimeBetween()%> </td>
+                <td><a href="">Take Dose</d></td>
+                <td><a href="/MedTracker/EditMed/<%=med.getID()%>">Edit</a></td>
+                <td><a href="/MedTracker/DeleteMed/<%=med.getID()%>">Delete</a></td>
             </tr>   
             <%}
                     }%>
         </table>
         
-        <a href="/MedTracker/addNewMed.jsp">Add new Med</a>
+        
         <footer>
         </footer>
     

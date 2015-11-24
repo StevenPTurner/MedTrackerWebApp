@@ -26,10 +26,13 @@ public final class Keyspaces {
                     + "  );";
             //created table to store user comments for profiles
             String CreateMedicine = "CREATE TABLE if not exists MedTracker.Medicine (\n"
+                    + "      id UUID,\n"
                     + "      login text,\n"
                     + "      medicine_name text,\n"
                     + "      instructions text,\n"
                     + "      dose int,\n"
+                    + "      time_between int,\n"
+                    + "      doses_left int,\n"
                     + "      last_taken timestamp,\n"
                     + "      PRIMARY KEY (login, medicine_name)"
                     + "  );";
