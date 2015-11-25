@@ -5,6 +5,8 @@ import java.util.StringTokenizer;
 //import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import com.eaio.uuid.UUID;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public final class Convertors {
     public static int DISPLAY_IMAGE=0;
@@ -168,5 +170,7 @@ public final class Convertors {
         return new StringTokenizer(str, "/");
 
     }
+    
+
 
 }

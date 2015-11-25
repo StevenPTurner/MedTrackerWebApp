@@ -15,10 +15,15 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import static uk.ac.dundee.computing.aec.MedTracker.lib.Convertors.getTimeUUID;
 import uk.ac.dundee.computing.aec.MedTracker.stores.Medicine;
+import org.joda.time.*;
+
+
 /**
  *
  * @author steven
@@ -49,15 +54,30 @@ public class MedicineModel {
             for (Row row : rs) {
                 Medicine med = new Medicine();
                 
+                //sets data from database
+                med.setID(row.getUUID("id"));
                 med.setUsername(row.getString("login"));
                 med.setMedicineName(row.getString("medicine_name"));
+                med.setInstructions(row.getString("instructions"));
                 med.setDose(row.getInt("dose"));
                 med.setDoseLeft(row.getInt("doses_left"));
-                med.setID(row.getUUID("id"));
-                med.setInstructions(row.getString("instructions"));
-                med.setLastTaken(row.getDate("last_Taken"));
                 med.setTimeBetween(row.getInt("time_between"));
+                med.setLastTaken(row.getDate("last_Taken"));
                 
+                //works out when the next dose is to be taken
+                Calendar nd = Calendar.getInstance();
+                nd.setTime(row.getDate("last_Taken"));
+                nd.add(Calendar.HOUR_OF_DAY, row.getInt("time_between"));
+                Date nextDose = nd.getTime();
+                med.setNextDose(nextDose);
+                
+                //works out time in hours before next dose
+                Date current = new Date();
+                long duration = nextDose.getTime() - current.getTime();
+                duration = TimeUnit.MILLISECONDS.toHours(duration);
+                int hours = (int) duration;
+                med.setTimeLeft(hours);
+   
                 allMeds.add(med); //add to linked list 
             }
             return allMeds;
@@ -157,6 +177,13 @@ public class MedicineModel {
         session.close();
     }
     
+    public String getTimeDiff(Date dateOne, Date dateTwo) {  
+        String diff = "";
+        long timeDiff = Math.abs(dateOne.getTime() - dateTwo.getTime());        
+        diff = String.format("%d", TimeUnit.MILLISECONDS.toHours(timeDiff), 
+                             TimeUnit.MILLISECONDS.toMinutes(timeDiff) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(timeDiff)));        
+        return diff;
+    }
     public void setCluster(Cluster cluster) {
         this.cluster = cluster;
     }

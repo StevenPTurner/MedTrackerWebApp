@@ -23,12 +23,20 @@ public class Medicine {
     private int dose = 0;
     private int doseLeft = 0;
     private int timeBetween = 0;
+    private int timeLeft = 0;
     private Date lastTaken = null;
+    private Date nextDose = null;
+    boolean takeDose = false;
+    
     
     
     public void Medicine()
     {
         
+    }
+    
+    public void setID(UUID id){
+        this.id=id;
     }
     
     public void setUsername(String username){
@@ -47,14 +55,6 @@ public class Medicine {
         this.dose=dose;
     }
     
-    public void setLastTaken(Date lastTaken){
-        this.lastTaken=lastTaken;
-    }
-    
-    public void setID(UUID id){
-        this.id=id;
-    }
-    
     public void setDoseLeft(int doseLeft){
         this.doseLeft=doseLeft;
     }
@@ -63,16 +63,33 @@ public class Medicine {
         this.timeBetween = timeBetween;
     }
     
+    public void setTimeLeft(int timeLeft){
+        this.timeLeft = timeLeft;
+    }
+    
+    public void setLastTaken(Date lastTaken){
+        this.lastTaken=lastTaken;
+    }
+    
+    public void setNextDose(Date nextDose){
+        this.nextDose = nextDose;
+    }
+    
+    public void setTakeDose(boolean takeDose){
+        this.takeDose = takeDose;
+    }
+   
+    
     public UUID getID()
     {
         return id;
     }
     
-    public int getDosesLeft()
+    public String getUsername()
     {
-        return doseLeft;
+        return username;
     }
-    
+        
     public String getMedicineName()
     {
         return medicineName;
@@ -88,9 +105,19 @@ public class Medicine {
         return dose;
     }
     
-    public String getUsername()
+    public int getDosesLeft()
     {
-        return username;
+        return doseLeft;
+    }
+ 
+    public int getTimeBetween()
+    {
+        return timeBetween;
+    }
+    
+    public int getTimeLeft()
+    {
+        return timeLeft;
     }
     
     public Date getLastTaken()
@@ -98,11 +125,15 @@ public class Medicine {
         return lastTaken;
     }
     
-    public int getTimeBetween()
-    {
-        return timeBetween;
-    }
+    public Date getNextDose()
+     {
+         return nextDose;
+     }
     
+    public boolean getTakeDose()
+    {
+         return takeDose;
+    }
     
     
 }
