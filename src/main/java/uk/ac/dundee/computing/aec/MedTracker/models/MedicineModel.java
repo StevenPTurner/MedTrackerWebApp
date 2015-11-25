@@ -92,17 +92,38 @@ public class MedicineModel {
         session.execute(boundStatement.bind(instructions, dose, time_between, id, username, medicine_name));  
     }
     
+    public void takeDose(UUID id, String username, String medicine_name)
+    {
+        Date date = new Date();
+        Session session = cluster.connect("MedTracker");
+        
+        PreparedStatement psDoses = session.prepare("SELECT doses_left FROM medicine where id=?");
+        BoundStatement bsDoses = new BoundStatement(psDoses);
+        ResultSet doseRS = session.execute(bsDoses.bind(id));
+        int dosesLeft=0;
+        
+        for (Row row : doseRS) {
+            dosesLeft = row.getInt("doses_left");
+        }
+        
+        dosesLeft=dosesLeft-1;
+       
+        PreparedStatement ps = session.prepare("UPDATE medicine SET doses_left = ?, last_taken = ? where id = ? AND login = ? AND medicine_name = ?");
+        BoundStatement boundStatement = new BoundStatement(ps);
+        session.execute(boundStatement.bind(dosesLeft,date,id,username, medicine_name)); 
+    }
+    
     public Medicine getUserMedicine(UUID id){
         //sets up needed objects and the cql statements to read from database
         Medicine med = new Medicine();
         Session session = cluster.connect("MedTracker");
         //gets the row of data where the needed login is
-        PreparedStatement ps = session.prepare("select * from medicine where id=?");
+        PreparedStatement ps = session.prepare("select * from medicine where id=? ALLOW FILTERING");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
         
-       rs=session.execute(boundStatement.bind(id)); // executes statement
-        
+        rs=session.execute(boundStatement.bind(id)); // executes statement
+       
         session.close();
         
         // if user dosn't exist
@@ -124,8 +145,7 @@ public class MedicineModel {
         }
     }
     
-    public void deleteMed(UUID id)
-    {
+    public void deleteMed(UUID id){
         Session session = cluster.connect("MedTracker");
         //gets the row of data where the needed login is
         PreparedStatement ps = session.prepare("DELETE from medicine where id=?");
@@ -136,6 +156,7 @@ public class MedicineModel {
         
         session.close();
     }
+    
     public void setCluster(Cluster cluster) {
         this.cluster = cluster;
     }

@@ -18,31 +18,37 @@ import javax.servlet.http.HttpServletResponse;
 import uk.ac.dundee.computing.aec.MedTracker.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.MedTracker.lib.Convertors;
 import uk.ac.dundee.computing.aec.MedTracker.models.MedicineModel;
+import uk.ac.dundee.computing.aec.MedTracker.stores.LoggedIn;
 import uk.ac.dundee.computing.aec.MedTracker.stores.Medicine;
 
 /**
  *
  * @author steven
  */
-@WebServlet(name = "DeleteMed", urlPatterns = {"/DeleteMed/*"})
-public class DeleteMed extends HttpServlet {
-    
+@WebServlet(name = "TakeDose", urlPatterns = {"/TakeDose/*"})
+public class TakeDose extends HttpServlet {
+
     Cluster cluster = null;
+    private Object session;
     
     public void init(ServletConfig config) throws ServletException {
         // TODO Auto-generated method stub
         cluster = CassandraHosts.getCluster();
     }
-
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
     }
-
+    
     /**
      * Handles the HTTP <code>GET</code> method.
      */
@@ -55,10 +61,14 @@ public class DeleteMed extends HttpServlet {
         //used to get a profile bean of the users data to display
         MedicineModel medM = new MedicineModel();
         medM.setCluster(cluster);
-        Medicine med = medM.getUserMedicine(id);  
+        Medicine med = medM.getUserMedicine(id);
+        
         String username = med.getUsername();
-                
-        medM.deleteMed(id);  
+        String medicine_name = med.getMedicineName();
+        medM.takeDose(id,username,medicine_name);   
+
+        
+        
         response.sendRedirect("/MedTracker/MyMeds/" + username);
     }
 

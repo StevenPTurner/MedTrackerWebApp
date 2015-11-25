@@ -34,7 +34,6 @@
                 <Th>Last Taken</Th>
                 <Th>Time Between Doses</Th>
             <tr>
-            
                 
                <% Iterator<Medicine> iterator;
                 iterator = myMeds.iterator();
@@ -48,7 +47,7 @@
                 <td><%=med.getInstructions()%> </td>
                 <td><%=med.getLastTaken()%> </td>
                 <td><%=med.getTimeBetween()%> </td>
-                <td><a href="">Take Dose</d></td>
+                <td><a href="/MedTracker/TakeDose/<%=med.getID()%>">Take Dose</a></td>
                 <td><a href="/MedTracker/EditMed/<%=med.getID()%>">Edit</a></td>
                 <td><a href="/MedTracker/DeleteMed/<%=med.getID()%>">Delete</a></td>
             </tr>   
