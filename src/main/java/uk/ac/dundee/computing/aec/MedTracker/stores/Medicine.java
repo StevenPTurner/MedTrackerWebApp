@@ -5,6 +5,7 @@
  */
 package uk.ac.dundee.computing.aec.MedTracker.stores;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
@@ -22,6 +23,7 @@ public class Medicine {
     private String instructions = null;
     private int dose = 0;
     private int doseLeft = 0;
+    private int dosePerPrescription = 0;
     private int timeBetween = 0;
     private int timeLeft = 0;
     private Date lastTaken = null;
@@ -57,6 +59,10 @@ public class Medicine {
     
     public void setDoseLeft(int doseLeft){
         this.doseLeft=doseLeft;
+    }
+    
+    public void setDosesPerPrescription(int dosesPerPrescription){
+        this.dosePerPrescription = dosesPerPrescription;
     }
     
     public void setTimeBetween(int timeBetween){
@@ -109,6 +115,11 @@ public class Medicine {
     {
         return doseLeft;
     }
+    
+    public int getDosesPerPresciption()
+    {
+        return dosePerPrescription;
+    }
  
     public int getTimeBetween()
     {
@@ -133,6 +144,16 @@ public class Medicine {
     public boolean getTakeDose()
     {
          return takeDose;
+    }
+    
+    
+    //used to format dates to viewable format
+    public String getFormattedDate(Date date)
+    {
+        SimpleDateFormat format = new SimpleDateFormat("EEE, MMM d, hh:mm aaa");
+        String formattedDate = format.format(date);
+        //formattedDate = formattedDate.replace(".", " ");
+        return formattedDate;
     }
     
     

@@ -20,20 +20,18 @@
         </header>
         <%LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
         java.util.LinkedList<Medicine> myMeds = (java.util.LinkedList<Medicine>) request.getAttribute("meds"); %>
-        <h3>Your medicines</h3>
+        <h3>Your medicines <%=lg.getUsername()%></h3>
         <table border="solid 1px black">
             <% if (myMeds == null) { %>
             <tr><h3>You have no medicines on your account </h3></td></tr>
             <%} else { %>
              <tr>
-                <Th>Username</Th>
                 <Th>Medicine</Th>
                 <Th>Dose</Th>
-                <Th>Doses Left</Th>
                 <Th>Instructions</Th>
                 <Th>Last Taken</Th>
-                <Th>Time Between Doses</Th>
                 <Th>Next Dose</Th>
+                <Th>Doses Left</Th>
             <tr>
                 
                <% Iterator<Medicine> iterator1;
@@ -41,15 +39,12 @@
                 while (iterator1.hasNext()) {
                     Medicine med = (Medicine) iterator1.next(); %>
             <tr>
-                <td><%=med.getUsername()%> </td>
                 <td><%=med.getMedicineName()%> </td>
                 <td><%=med.getDose()%> </td>
-                <td><%=med.getDosesLeft()%> </td>
                 <td><%=med.getInstructions()%> </td>
-                <td><%=med.getLastTaken()%> </td>
-                <td><%=med.getTimeBetween()%> </td>
-                <td><%=med.getNextDose()%></td>
-                <td><%=med.getTimeLeft()%></td>
+                <td><%=med.getFormattedDate(med.getLastTaken())%> </td>
+                <td><%=med.getFormattedDate(med.getNextDose())%></td>
+                <td><%=med.getDosesLeft()%> </td>
                 <td><a href="/MedTracker/TakeDose/<%=med.getID()%>">Take Dose</a></td>
                 <td><a href="/MedTracker/EditMed/<%=med.getID()%>">Edit</a></td>
                 <td><a href="/MedTracker/DeleteMed/<%=med.getID()%>">Delete</a></td>
@@ -69,7 +64,7 @@
                     if(med.getTimeLeft() <= 1) { %>
                         <p>You are due to take a dose of <%=med.getMedicineName()%> now <a href="/MedTracker/TakeDose/<%=med.getID()%>">Take Now</a></p>
                     <% } else { %>
-                        <p>You are due to take a dose of <%=med.getMedicineName()%> in <%=med.getTimeLeft()%> hours at <%=med.getNextDose()%>
+                        <p>You are due to take a dose of <%=med.getMedicineName()%> in <%=med.getTimeLeft()%> hours at <%=med.getFormattedDate(med.getNextDose())%>
                     <% }
                     if (med.getDosesLeft() <=5){ %>
                         <p>You have only <%=med.getDosesLeft()%> remaining <a href="">order prescription</a></p>

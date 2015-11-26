@@ -31,6 +31,7 @@ public final class Keyspaces {
                     + "      medicine_name text,\n"
                     + "      instructions text,\n"
                     + "      dose int,\n"
+                    + "      doses_per_prescription int,\n"
                     + "      time_between int,\n"
                     + "      doses_left int,\n"
                     + "      last_taken timestamp,\n"
