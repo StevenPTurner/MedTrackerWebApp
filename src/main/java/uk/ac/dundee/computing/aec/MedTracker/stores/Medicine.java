@@ -28,7 +28,7 @@ public class Medicine {
     private int timeLeft = 0;
     private Date lastTaken = null;
     private Date nextDose = null;
-    boolean takeDose = false;
+    private boolean emailSent = false;
     
     
     
@@ -81,8 +81,8 @@ public class Medicine {
         this.nextDose = nextDose;
     }
     
-    public void setTakeDose(boolean takeDose){
-        this.takeDose = takeDose;
+    public void setEmailSent(boolean emailSent){
+        this.emailSent = emailSent;
     }
    
     
@@ -141,9 +141,9 @@ public class Medicine {
          return nextDose;
      }
     
-    public boolean getTakeDose()
+    public boolean getEmailSent()
     {
-         return takeDose;
+         return emailSent;
     }
     
     

@@ -4,6 +4,7 @@
     Author     : steven
 --%>
 
+<%@page import="uk.ac.dundee.computing.aec.MedTracker.models.User"%>
 <%@page import="java.util.Iterator"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="uk.ac.dundee.computing.aec.MedTracker.stores.*" %>
@@ -18,7 +19,7 @@
         <header>
             <h1><a href="/MedTracker">MedTracker</a> </h1>
         </header>
-        <%LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+        <%LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");       
         java.util.LinkedList<Medicine> myMeds = (java.util.LinkedList<Medicine>) request.getAttribute("meds"); %>
         <h3>Your medicines <%=lg.getUsername()%></h3>
         <table border="solid 1px black">
@@ -53,9 +54,11 @@
                     }%>
         </table>
         
-        <div/>
+        
+        <div>
+            <h3>Alerts</h3>
             <% if (myMeds == null) { %>
-                <tr><h3>You have no medicines on your account </h3></td></tr>
+                <tr><h4>You have no new alerts </h4></td></tr>
             <%} else { %>
                <% Iterator<Medicine> iterator2;
                 iterator2 = myMeds.iterator();
@@ -67,7 +70,8 @@
                         <p>You are due to take a dose of <%=med.getMedicineName()%> in <%=med.getTimeLeft()%> hours at <%=med.getFormattedDate(med.getNextDose())%>
                     <% }
                     if (med.getDosesLeft() <=5){ %>
-                        <p>You have only <%=med.getDosesLeft()%> remaining <a href="">order prescription</a></p>
+                        <p>You have only <%=med.getDosesLeft()%> remaining <a href="/MedTracker/Refil/<%=med.getID()%>">order prescription</a></p>
+                        
                     <%}%>
            
             <%}

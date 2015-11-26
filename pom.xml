@@ -13,8 +13,20 @@
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    
+      
+  <repositories>
+    <repository>
+  	<id>Java.Net</id>
+  	<url>http://download.java.net/maven/2/</url>
+    </repository>
+  </repositories>
+  
     <dependencies>
+         <dependency>
+	 <groupId>javax.mail</groupId>
+	 <artifactId>mail</artifactId>
+	 <version>1.4.3</version>
+    </dependency>
         <dependency>
             <groupId>com.datastax.cassandra</groupId>
             <artifactId>cassandra-driver-core</artifactId>
@@ -41,12 +53,13 @@
             <version>2.6</version>
             <type>jar</type>
         </dependency>
-        <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-web-api</artifactId>
-            <version>7.0</version>
-            <scope>provided</scope>
-        </dependency>
+        <dependency>  
+            <groupId>org.jboss.spec</groupId>  
+            <artifactId>jboss-javaee-6.0</artifactId>  
+            <version>1.0.0.Final</version>  
+            <type>pom</type>  
+            <scope>provided</scope>  
+    </dependency>  
     </dependencies>
 
     <build>

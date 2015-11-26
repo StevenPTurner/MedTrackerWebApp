@@ -11,22 +11,14 @@ import com.datastax.driver.core.PreparedStatement;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
-import java.io.UnsupportedEncodingException;
-import java.util.Properties;
-/*import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;*/
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import uk.ac.dundee.computing.aec.MedTracker.lib.AlertMail;
 import static uk.ac.dundee.computing.aec.MedTracker.lib.Convertors.getTimeUUID;
 import uk.ac.dundee.computing.aec.MedTracker.stores.Medicine;
+import uk.ac.dundee.computing.aec.MedTracker.stores.UserProfile;
 
 /**
  *
@@ -83,11 +75,33 @@ public class MedicineModel {
                 duration = TimeUnit.MILLISECONDS.toHours(duration);
                 int hours = (int) duration;
                 med.setTimeLeft(hours);
-   
+                
+                if( (row.getInt("doses_left")<=5) && (row.getInt("email_sent")==0)){
+                   sendMailAlert(med.getID(), med.getUsername(), med.getMedicineName());
+                } 
                 allMeds.add(med); //add to linked list 
             }
             return allMeds;
         }
+    }
+    
+    public void sendMailAlert(UUID id, String username, String medicineName)
+    {
+        User us = new User();
+        us.setCluster(cluster);
+        UserProfile up = us.getUserProfile(username);
+        
+        Session session = cluster.connect("MedTracker");
+        //gets all meds in database for a user
+        PreparedStatement ps = session.prepare("update medicine set email_sent = 1 where id = ? AND login = ? AND medicine_name=?");
+
+        BoundStatement boundStatement = new BoundStatement(ps);
+        session.execute(boundStatement.bind(id,username,medicineName)); // executes statement
+        session.close();
+        
+        AlertMail mailSender = new AlertMail();
+        mailSender.sendNoticeMail(up.getEmail(), up.getFirstName(), up.getLastName(), medicineName );
+        
     }
     
     //adds a new medicine for a user
@@ -96,15 +110,15 @@ public class MedicineModel {
         //used to get last taken date
         Date date = new Date();
         UUID id = getTimeUUID();
-       
+        int email_sent=0;
         //simple insert statement
         Session session = cluster.connect("MedTracker");
-        PreparedStatement ps = session.prepare("insert into medicine (login, medicine_name, dose, doses_left, doses_per_prescription, id, instructions, last_taken, time_between) Values(?,?,?,?,?,?,?,?,?)");
+        PreparedStatement ps = session.prepare("insert into medicine (login, medicine_name, dose, doses_left, doses_per_prescription, id, instructions, last_taken, time_between, email_sent) Values(?,?,?,?,?,?,?,?,?,?)");
        
         BoundStatement boundStatement = new BoundStatement(ps);
         session.execute( // this is where the query is executed
                 boundStatement.bind( // here you are binding the 'boundStatement'
-                        username, medicine_name, dose, doses_left, doses_left, id, instructions, date, time_between));
+                        username, medicine_name, dose, doses_left, doses_left, id, instructions, date, time_between,email_sent));
         //We are assuming this always works.  Also a transaction would be good here !
         
         return true;
@@ -115,7 +129,7 @@ public class MedicineModel {
     {
         Session session = cluster.connect("MedTracker");
         PreparedStatement ps = session.prepare("update medicine set instructions = ?, dose = ?, time_between=? where id = ? AND login = ? AND medicine_name=?");
-           
+            
         BoundStatement boundStatement = new BoundStatement(ps);
         session.execute(boundStatement.bind(instructions, dose, time_between, id, username, medicine_name));  
     }
@@ -193,63 +207,27 @@ public class MedicineModel {
         session.close();
     }
     
-  /*  public void refillPrescription(UUID id, String username, String medicine_name){
+    public void refillPrescription(UUID id, String username, String medicine_name){
         
         Session session = cluster.connect("MedTracker");
-        PreparedStatement psDoses = session.prepare("SELECT doses_left FROM medicine where id=?");
+        PreparedStatement psDoses = session.prepare("SELECT doses_per_prescription FROM medicine where id=?");
         BoundStatement bsDoses = new BoundStatement(psDoses);
         ResultSet doseRS = session.execute(bsDoses.bind(id));
-        int dosesLeft=0;
+        int doses_per_perscription=0;
         
         for (Row row : doseRS) {
-            dosesLeft = row.getInt("doses_left");
+            doses_per_perscription = row.getInt("doses_per_prescription");
         }
         
-        dosesLeft=dosesLeft-1;
+        
        
-        PreparedStatement ps = session.prepare("UPDATE medicine SET doses_left = ?, last_taken = ? where id = ? AND login = ? AND medicine_name = ?");
+        PreparedStatement ps = session.prepare("UPDATE medicine SET doses_left = ?, email_sent = 0 where id = ? AND login = ? AND medicine_name = ?");
         BoundStatement boundStatement = new BoundStatement(ps);
-        session.execute(boundStatement.bind(dosesLeft,date,id,username, medicine_name))
+        session.execute(boundStatement.bind(doses_per_perscription,id,username, medicine_name));
     }
-    */
     
-   /*public void sendNoticeMail()
-   {
-        final String username = "your_user_name@gmail.com";
-        final String password = "yourpassword";
+    
 
-        Properties props = new Properties();
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
-
-        Session session = Session.getInstance(props,
-          new javax.mail.Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, password);
-            }
-          });
-
-        try {
-
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("your_user_name@gmail.com"));
-            message.setRecipients(Message.RecipientType.TO,
-                InternetAddress.parse("to_email_address@domain.com"));
-            message.setSubject("Testing Subject");
-            message.setText("Dear Mail Crawler,"
-                + "\n\n No spam to my email, please!");
-
-            Transport.send(message);
-
-            System.out.println("Done");
-
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
-        }
-   }
-   */
     //used to work out the time difference between two dates in hours, works with magic
     public String getTimeDiff(Date dateOne, Date dateTwo) {  
         String diff = "";
