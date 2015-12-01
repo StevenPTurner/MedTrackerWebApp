@@ -7,6 +7,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@ page isErrorPage="true"%>
+<%@ include file= "header.jsp"%>
+<%@ include file= "footer.jsp"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,7 +18,7 @@
     </head>
     <body>
         <header>
-            <h1><a href="/MedTracker">MedTracker</a> </h1>
+            
         </header>
        
             <h3>Page not found 404 =( </h3>
