@@ -6,16 +6,18 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="uk.ac.dundee.computing.aec.MedTracker.stores.*" %>
+<%@ include file= "header.jsp"%>
+<%@ include file= "footer.jsp"%>
 <!DOCTYPE html>
 <html>
     <head>
         <title>MedTracker</title>
-        <link rel="stylesheet" type="text/css" href="Styles.css" />
+        <link rel="stylesheet" type="text/css" href="../Styles.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
         <header>
-            <h1><a href="/MedTracker">MedTracker</a> </h1>
+            
         </header>
         
        <% LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");%>

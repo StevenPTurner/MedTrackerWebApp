@@ -7,6 +7,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="uk.ac.dundee.computing.aec.MedTracker.stores.*" %>
+<%@ include file= "header.jsp"%>
+<%@ include file= "footer.jsp"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,7 +18,7 @@
     </head>
     <body>
         <header>
-            <h1><a href="/MedTracker">MedTracker</a> </h1>
+            
         </header>
             <ul>
                 <%

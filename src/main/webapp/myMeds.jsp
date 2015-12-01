@@ -8,17 +8,24 @@
 <%@page import="java.util.Iterator"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="uk.ac.dundee.computing.aec.MedTracker.stores.*" %>
+<%@ include file= "header.jsp"%>
+<%@ include file= "footer.jsp"%>
 <!DOCTYPE html>
 <html>
     <head>
         <title>MedTracker</title>
-        <link rel="stylesheet" type="text/css" href="Styles.css" />
+        <link rel="stylesheet" type="text/css" href="../Styles.css" />
+        <link rel="stylesheet" href="../flipclock.css"/>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="/MedTracker/flipclock.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     
         <header>
-            <h1><a href="/MedTracker">MedTracker</a> </h1>
+            
         </header>
+        
+    
         <%LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");       
         java.util.LinkedList<Medicine> myMeds = (java.util.LinkedList<Medicine>) request.getAttribute("meds"); %>
         <h3>Your medicines <%=lg.getUsername()%></h3>
@@ -63,8 +70,10 @@
                <% Iterator<Medicine> iterator2;
                 iterator2 = myMeds.iterator();
                 while (iterator2.hasNext()) {
-                    Medicine med = (Medicine) iterator2.next(); 
-                    if(med.getTimeLeft() <= 1) { %>
+                    Medicine med = (Medicine) iterator2.next();%> 
+                    <%--<%!int timeClock = (*3600);%>--%>
+                    <div class="clock">Clock here</div>
+                    <%if(med.getTimeLeft() <= 1) { %>
                         <p>You are due to take a dose of <%=med.getMedicineName()%> now <a href="/MedTracker/TakeDose/<%=med.getID()%>">Take Now</a></p>
                     <% } else { %>
                         <p>You are due to take a dose of <%=med.getMedicineName()%> in <%=med.getTimeLeft()%> hours at <%=med.getFormattedDate(med.getNextDose())%>
@@ -79,7 +88,9 @@
         </div>
 
         
-        
+        <script type="text/javascript">
+            var clock = $('.clock').FlipClock('43200', {countdown: true});
+        </script>
         <footer>
         </footer>
     

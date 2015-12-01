@@ -7,22 +7,22 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@ page isErrorPage="true"%>
+<%@ include file= "header.jsp"%>
+<%@ include file= "footer.jsp"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Instagrim</title>
-        <link rel="stylesheet" type="text/css" href="InstagrimSWTurner/Styles.css" />
+        <title>MedTracker</title>
+        <link rel="stylesheet" type="text/css" href="/Styles.css" />
 
     </head>
     <body>
-        <header class="topBar">
-            <h1><a href="/InstagrimSWTurner">InstaGrim!</a></h1>
-            <h2>Your world in Black and White</h2>
+        <header >
         </header>
        
             <h1 class="Error">Something went wrong. Sorry =( </h1>
-            <div class="homeButton "><a href="/InstagrimSWTurner">Go home</a></div>
+            <div class="homeButton "><a href="/MedTracker">Go home</a></div>
         <footer>
             <ul>
                  <li>&COPY; Steven Turner</li>
