@@ -17,7 +17,7 @@ body {
 
 /* --- INDEX --- */
 #index {
-    background-image: url(image/bg01.jpg);
+    background-image: url(/MedTracker/bg01.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     height: 100%;
@@ -86,7 +86,7 @@ body {
 
 /* --- PAGE --- */
 #page-header {
-    background-image: url(image/bg01.jpg);
+    background-image: url(/MedTracker/bg01.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     height: 100%;
@@ -354,9 +354,9 @@ body {
     position: fixed;
     left: 125px;
     right: 0;
-    height: 87px;
+    height: 78px;
     background-color: #1299e3;
-    line-height: 60px;
+    line-height: 53px;
 }
 #dashboard .topnav ul {
     list-style: none;
@@ -395,6 +395,30 @@ body {
     padding-top: 0;
     margin-top: -30px;
     opacity: 0.2;
+}
+#dashboard .content form label {
+    display: block;
+    float: left;
+    width: 200px;
+}
+#dashboard .content form input {
+    width: 300px;
+    line-height: 20px;
+}
+#dashboard .content form button {
+    margin-left: 200px;
+    border: 0;
+    background-color: #1299e3;
+    cursor: pointer;
+    color: #fff;
+    padding: 10px 30px;
+    font-size: 15px;
+    margin-top: 10px;
+    transition: 0.3s ease all;
+}
+#dashboard .content form button:hover {
+    background-color: #1172d5;
+    transition: 0.3s ease all;
 }
 
 /* --- FOOTER --- */
