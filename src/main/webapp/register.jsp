@@ -16,7 +16,7 @@
     <body>
         <div class="container">
             <div id="page-header">
-                <div class="logo"><a href="/MedTracker/"><img src="image/logo3.png"></a></div>
+                <div class="logo"><a href="/MedTracker/"><img src="logo.png"></a></div>
                 <div class="buttons">
                     <ul>
                         <li><a href="about.jsp">About Us</a></li>
