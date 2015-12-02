@@ -5,28 +5,43 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ include file= "header.jsp"%>
-<%@ include file= "footer.jsp"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>MedTracker</title>
-        <link rel="stylesheet" type="text/css" href="Styles.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Login - MedTracker</title>
+        <link rel="stylesheet" type="text/css" href="Styles.css" />
+        <link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,400italic|Lato:400,400italic,300,300italic' rel='stylesheet' type='text/css'>
     </head>
     <body>
-        <header>
-            
-        </header>
-        
-        <h3>Login</h3>
-            <form method="POST"  action="Login">
-                <ul>
-                    <li>User Name <input type="text" name="username"></li>
-                    <li>Password <input type="password" name="password"></li>
-                </ul>
-                <br/>
-                ${error}
-                <input class = "button" type="submit" value="Login"> 
+        <div class="container">
+            <div id="page-header">
+                <div class="logo"><a href="/MedTracker/"><img src="logo.png"></a></div>
+                <div class="buttons">
+                    <ul>
+                        <li><a href="about.jsp">About Us</a></li>
+                        <li><a href="register.jsp">Register</a></li>
+                        <li><a href="login.jsp">Login</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="page-content">
+                <span class="title">Login</span>
+                <form method="POST" action="Login">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" name="username" id="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password">
+                    </div>
+                    ${error}
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+            <footer>
+            </footer>
+        </div>
     </body>
 </html>
