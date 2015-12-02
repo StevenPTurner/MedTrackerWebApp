@@ -1,3 +1,403 @@
+body {
+    font-family: 'NRT', sans-serif;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    background-color: #fff;
+}
+
+.container {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    background-size: cover;
+    background-position: 50% 50%;
+    width: 100%;
+}
+
+/* --- INDEX --- */
+#index {
+    background-image: url(image/bg01.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+}
+#index .logo {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+#index .logo a {
+    display: block;
+    background-color: #fff;
+    padding: 15px;
+}
+#index .logo a img {
+    height: 60px;
+}
+#index .title {
+    font-family: 'Playfair Display', serif;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    color: #333334;
+    font-size: 40px;
+    transform: translateY(-50%);
+}
+#index .buttons {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+}
+#index .buttons ul {
+    list-style: none;
+}
+#index .buttons ul li a {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-size: 15px;
+    text-transform: none;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    color: #fff;
+    width: 125px;
+    background-color: #333334;
+    line-height: 45px;
+    transition: 0.3s ease all;
+}
+#index .buttons ul li a:hover {
+    background-color: #3f3f3f;
+    transition: 0.3s ease all;
+}
+#index .about {
+    position: absolute;
+    bottom: 10%;
+    width: 100%;
+    text-align: center;
+}
+#index .about a {
+    font-family: 'Playfair Display', serif;
+    color: #fff;
+    text-decoration: none;
+}
+
+/* --- PAGE --- */
+#page-header {
+    background-image: url(image/bg01.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 50%;
+}
+#page-header .logo {
+    position: absolute;
+    top: 88px;
+    transform: translateY(-50%);
+}
+#page-header .logo a {
+    display: block;
+    background-color: #fff;
+    padding: 15px;
+}
+#page-header .logo a img {
+    height: 60px;
+}
+#page-header .title {
+    font-family: 'Playfair Display', serif;
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    color: #333334;
+    font-size: 40px;
+    transform: translateY(-50%);
+    padding-left: 25px;
+}
+#page-header .buttons {
+    position: absolute;
+    top: 119px;
+    left: 0;
+    margin-left: -40px;
+}
+#page-header .buttons ul {
+    list-style: none;
+    float: left;
+}
+#page-header .buttons ul li a {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-size: 15px;
+    text-transform: none;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    color: #fff;
+    width: 134px;
+    background-color: #333334;
+    line-height: 45px;
+    transition: 0.3s ease all;
+    float: left;
+}
+#page-header .buttons ul li a:hover {
+    background-color: #3f3f3f;
+    transition: 0.3s ease all;
+}
+#page-content {
+    font-family: 'Playfair Display', serif;
+    position: absolute;
+    right: 0;
+    width: 50%;
+    top: 25%;
+    padding-left: 50px;
+}
+#page-content .title {
+    font-family: 'Playfair Display', serif;
+    color: #333334;
+    font-size: 40px;
+    transform: translateY(-50%);
+    padding-left: 25px;
+}
+#page-content p {
+    padding-left: 25px;
+    padding-right: 25px;
+    margin-top: 50px;
+}
+#page-content form {
+    padding-left: 25px;
+    padding-top: 30px;
+}
+#page-content form .form-group {
+    padding-top: 10px;
+}
+#page-content form .form-group label {
+    display: block;
+    width: 100px;
+    float: left;
+    line-height: 30px;
+}
+#page-content form .form-group input {
+    line-height: 20px;
+    font-family: 'Lato', sans-serif;
+    font-size: 20px;
+    width: 250px;
+}
+#page-content form button {
+    margin-left: 100px;
+    margin-top: 10px;
+    font-size: 20px;
+    font-family: 'Playfair Display', serif;
+    background-color: #333334;
+    border: 0;
+    color: #fff;
+    padding: 10px 30px;
+    cursor: pointer;
+    transition: 0.3s ease all;
+}
+#page-content form button:hover {
+    background-color: #3f3f3f;
+    transition: 0.3s ease all;
+}
+
+/* --- HOME PAGE --- */
+#home-welcome {
+    background-image: url(image/bg.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+}
+#home-welcome .logo {
+    position: absolute;
+    width: 100%;
+    top: 25%;
+    text-align: center;
+}
+#home-welcome .logo img {
+    height: 100px;
+}
+#home-welcome .title {
+    font-family: 'Yellowtail', serif;
+    position: absolute;
+    width: 100%;
+    top: 48%;
+    text-align: center;
+    color: #3d3c3c;
+    font-size: 40px;
+}
+#home-welcome .buttons {
+    position: absolute;
+    width: 100%;
+    top: 65%;
+    text-align: center;
+    color: #fff;
+}
+#home-welcome .buttons a {
+    font-family: 'NTR', sans-serif;
+    color: #3d3c3c;
+    text-decoration: none;
+    border: 3px solid #1299e3;
+    font-size: 25px;
+    padding: 5px 50px;
+    margin: 8px;
+    transition: 0.3s ease all;
+}
+#home-welcome .buttons a:hover {
+    background-color: #1299e3;
+    color: #fff;
+    transition: 0.3s ease all;
+}
+#home-welcome #bg {
+    position: absolute;
+    top: 20%;
+    bottom: 20%;
+    left: 30%;
+    right: 30%;
+    margin: auto;
+    background-color: #f0f0f0;
+    opacity: 0.8;
+    border-radius: 10px;
+}
+#home-welcome h3 {
+    position: absolute;
+    top: 37%;
+    text-align: center;
+    width: 100%;
+    font-family: 'NTR', sans-serif;
+    font-size: 30px;
+}
+#home-welcome form {
+    position: absolute;
+    top: 47%;
+    width: 100%;
+    text-align: center;
+    font-family: 'NTR', sans-serif;
+}
+#home-welcome form ul {
+    list-style: none;
+}
+#home-welcome form .button {
+    color: #3d3c3c;
+    border: 3px solid #1299e3;
+    font-size: 18px;
+    padding: 5px 50px;
+    background-color: transparent;
+    transition: 0.3s ease all;
+}
+#home-welcome form .button:hover {
+    background-color: #1299e3;
+    transition: 0.3s ease all;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* --- DASHBOARD --- */
+#dashboard {
+    height: 100%;
+    font-family: 'NTR', sans-serif;
+    background-color: #f0f0f0;
+}
+#dashboard .sidebar {
+    height: 100%;
+    position: fixed;
+    left: 0;
+    width: 125px;
+    background-color: #3d3c3c;
+}
+#dashboard .sidebar .logo {
+    width: 125px;
+    height: 87px;
+    background-color: transparent;
+    top: 0;
+    left: 0;
+}
+#dashboard .sidebar .logo:hover {
+    background-color: #424141;
+}
+#dashboard .sidebar .logo img {
+    width: 85px;
+    padding-left: 18px;
+    padding-top: 15px;
+}
+#dashboard .sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 125px;
+    border-top: 1px solid #474646;
+}
+#dashboard .sidebar ul li {
+    width: 125px;
+    text-align: center;
+}
+#dashboard .sidebar ul li a {
+    display: block;
+    background-color: transparent;
+    width: 125px;
+    color: #e1e1e1;
+    text-decoration: none;
+    border-bottom: 1px solid #474646;
+    font-size: 18px;
+    text-align: center;
+    padding-bottom: 8px;
+}
+#dashboard .sidebar ul li a:hover {
+    background-color: #424141;
+}
+#dashboard .sidebar ul li a i {
+    font-size: 35px;
+    margin-bottom: -10px;
+    padding-top: 15px;
+    padding-bottom: 0px;
+}
+#dashboard .topnav {
+    position: fixed;
+    left: 125px;
+    right: 0;
+    height: 87px;
+    background-color: #1299e3;
+    line-height: 60px;
+}
+#dashboard .topnav ul {
+    list-style: none;
+}
+#dashboard .topnav ul li {
+    float: left;
+    padding: 0px 15px;
+}
+#dashboard .topnav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+}
+#dashboard .topnav ul li a:hover {
+    text-decoration: underline;
+}
+#dashboard .topnav .left {
+    float: left;
+}
+#dashboard .topnav .right {
+    float: right;
+    margin-right: 15px;
+}
+#dashboard .content {
+    position: fixed;
+    overflow-y: auto;
+    overflow-x: hidden;
+    left: 125px;
+    top: 87px;
+    right: 0;
+    bottom: 0;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+#dashboard .content hr {
+    padding-top: 0;
+    margin-top: -30px;
+    opacity: 0.2;
+}
+
+/* --- FOOTER --- */
 footer{
  position:fixed;
  bottom:0;
