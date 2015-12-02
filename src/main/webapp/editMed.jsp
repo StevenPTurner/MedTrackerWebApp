@@ -45,16 +45,21 @@
                 <div class="content">
                     <h1>Edit <%=lg.getUsername()%>'s Medicine</h1><hr>
                     <form method="POST"  action="EditMed/<%=userMed.getID()%>">
-                        <ul>
-                            <input type="hidden" name="login" value="<%=userMed.getUsername() %>" readonly="readonly"></li>
-                            <input type="hidden" name="id" value="<%=userMed.getID() %>" readonly="readonly"></li>
-                            <input type="hidden" name="medicine_name" value="<%=userMed.getMedicineName() %>" readonly="readonly"></li>
-                            <li>Instructions<input type="text" name="instructions" value="<%=userMed.getInstructions()%>"></li>
-                            <li>Dose <input type="text" name="dose" value="<%=userMed.getDose()%>"></li>
-                            <li>Time Between Doses <input type="text" name="time_between" value="<%=userMed.getTimeBetween()%>"></li>
-                        </ul>
-                        <br/>
-                        <input class="button" type="submit" value="Edit Details"> 
+                        <input type="hidden" name="login" value="<%=userMed.getUsername() %>" readonly="readonly">
+                        <input type="hidden" name="id" value="<%=userMed.getID() %>" readonly="readonly">
+                        <div class='form-group'>
+                            <label for='instructions'>Instructions</label>
+                            <input type="text" name="instructions" id="instructions" value="<%=userMed.getInstructions()%>">
+                        </div>
+                        <div class='form-group'>
+                            <label for='dose'>Dose</label>
+                            <input type="text" name="dose" id="dose" value="<%=userMed.getDose()%>">
+                        </div>
+                        <div class='form-group'>
+                            <label for='time_between'>Time Between Doses</label>
+                            <input type="text" name="time_between" id="time_between" value="<%=userMed.getTimeBetween()%>">
+                        </div>
+                        <button type="submit">Edit Details</button>
                     </form>
                 </div>
             </div>
