@@ -46,7 +46,7 @@
                 </div>
                 <div class="content">
                     <h1><%=lg.getUsername()%>'s Medicines</h1><hr>
-                    <table border="solid 1px black">
+                    <table class="table table-hover">
                         <% if (myMeds == null) { %>
                         <tr><h3>You have no medicines on your account </h3></td></tr>
                         <%} else { %>
@@ -57,6 +57,7 @@
                             <Th>Last Taken</Th>
                             <Th>Next Dose</Th>
                             <Th>Doses Left</Th>
+                            <Th colspan="3" style="text-align:center">Controls</th>
                         <tr>
 
                            <% Iterator<Medicine> iterator1;
@@ -89,12 +90,12 @@
                                 <%--<%!int timeClock = (*3600);%>--%>
                                 <div class="clock">Clock here</div>
                                 <%if(med.getTimeLeft() <= 1) { %>
-                                    <p>You are due to take a dose of <%=med.getMedicineName()%> now <a href="/MedTracker/TakeDose/<%=med.getID()%>">Take Now</a></p>
+                                    <p class="alertLow" >You are due to take a dose of <%=med.getMedicineName()%> now <a href="/MedTracker/TakeDose/<%=med.getID()%>">Take Now</a></p>
                                 <% } else { %>
-                                    <p>You are due to take a dose of <%=med.getMedicineName()%> in <%=med.getTimeLeft()%> hours at <%=med.getFormattedDate(med.getNextDose())%>
+                                    <p class="alertMed">You are due to take a dose of <%=med.getMedicineName()%> in <%=med.getTimeLeft()%> hours at <%=med.getFormattedDate(med.getNextDose())%>
                                 <% }
                                 if (med.getDosesLeft() <=5){ %>
-                                    <p>You have only <%=med.getDosesLeft()%> remaining <a href="/MedTracker/Refil/<%=med.getID()%>">order prescription</a></p>
+                                    <p class="alertHigh">You have only <%=med.getDosesLeft()%> remaining <a href="/MedTracker/Refil/<%=med.getID()%>">order prescription</a></p>
 
                                 <%}%>
 

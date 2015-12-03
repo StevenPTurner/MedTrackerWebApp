@@ -47,6 +47,7 @@
                     <form method="POST"  action="EditMed/<%=userMed.getID()%>">
                         <input type="hidden" name="login" value="<%=userMed.getUsername() %>" readonly="readonly">
                         <input type="hidden" name="id" value="<%=userMed.getID() %>" readonly="readonly">
+                        <input type="hidden" name="medicine_name" value="<%=userMed.getMedicineName() %>" readonly="readonly"></li>
                         <div class='form-group'>
                             <label for='instructions'>Instructions</label>
                             <input type="text" name="instructions" id="instructions" value="<%=userMed.getInstructions()%>">
