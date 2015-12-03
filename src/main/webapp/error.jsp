@@ -12,7 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>About Us - MedTracker</title>
-        <link rel="stylesheet" type="text/css" href="Styles.css" />
+        <link rel="stylesheet" type="text/css" href="/MedTracker/Styles.css" />
         <link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,400italic|Lato:400,400italic,300,300italic' rel='stylesheet' type='text/css'>
     </head>
     <body>

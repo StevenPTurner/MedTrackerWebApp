@@ -33,7 +33,7 @@
                     <ul class="left">
                         <li><a href="/MedTracker/">Home</a></li>
                         <li><a href="/MedTracker/Account/<%=lg.getUsername()%>">My Account</a></li>
-                        <li><a href="#">Support</a></li>
+                        <li><a href="aboutus.jsp">About Us</a></li>
                     </ul>
                     <ul class="right">
                         <li><a href="#">Settings</a></li>

@@ -1,7 +1,7 @@
 <%-- 
     Document   : editMed
     Created on : 23-Nov-2015, 20:28:19
-    Author     : steven
+    Author     : lee
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -42,28 +42,13 @@
                         <li><a href="/MedTracker/Logout">Log Out</a></li>
                     </ul>
                 </div>
-                <div class="content">
-                    <h1>Edit <%=lg.getUsername()%>'s Medicine</h1><hr>
-                    <form method="POST"  action="EditMed/<%=userMed.getID()%>">
-                        <input type="hidden" name="login" value="<%=userMed.getUsername() %>" readonly="readonly">
-                        <input type="hidden" name="id" value="<%=userMed.getID() %>" readonly="readonly">
-                        <input type="hidden" name="medicine_name" value="<%=userMed.getMedicineName() %>" readonly="readonly"></li>
-                        <div class='form-group'>
-                            <label for='instructions'>Instructions</label>
-                            <input type="text" name="instructions" id="instructions" value="<%=userMed.getInstructions()%>">
-                        </div>
-                        <div class='form-group'>
-                            <label for='dose'>Dose</label>
-                            <input type="text" name="dose" id="dose" value="<%=userMed.getDose()%>">
-                        </div>
-                        <div class='form-group'>
-                            <label for='time_between'>Time Between Doses</label>
-                            <input type="text" name="time_between" id="time_between" value="<%=userMed.getTimeBetween()%>">
-                        </div>
-                        <button type="submit">Edit Details</button>
-                    </form>
+                    <div id="page-content">
+                    <span class="title">About Us</span>
+                        <p>MedTracker is an application that is designed to streamline the process of remembering to take your medication. Once you have registered with us, the only work you have to do is to input your medication details and we do the rest for you.</p>
+                        <p>You will receive a simple alert to remind you when it is time to take your medicine, when you are running low on your medicine, and on top of that, allow you to order a repeat prescription.</p>
+                        <p>Take away the stress, and sign up for a free account now.</p>
+                    
                 </div>
             </div>
-        </div>
     </body>
 </html>

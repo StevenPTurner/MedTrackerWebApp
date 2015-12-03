@@ -23,7 +23,7 @@
                     <span class="logo"><img src="/MedTracker/logo-white.png" alt=""/></span>
                     <ul>
                         <li><a href="/MedTracker/"><i class="fa fa-desktop"></i><br>Dashboard</a></li>
-                        <li><a href="/MedTracker/myMeds.jsp"><i class="fa fa-eye"></i><br>View Meds</a></li>
+                        <li><a href="/MedTracker/MyMeds/myMeds.jsp"><i class="fa fa-eye"></i><br>View Meds</a></li>
                         <li><a href="/MedTracker/addNewMed.jsp"><i class="fa fa-plus"></i><br>Add Meds</a></li>
                     </ul>
                 </div>
@@ -36,7 +36,7 @@
                     <ul class="left">
                         <li><a href="/MedTracker/">Home</a></li>
                         <li><a href="/MedTracker/Account/<%=lg.getUsername()%>">My Account</a></li>
-                        <li><a href="#">Support</a></li>
+                        <li><a href="/MedTracker/aboutus.jsp">About Us</a></li>
                     </ul>
                     <ul class="right">
                         <li><a href="#">Settings</a></li>
@@ -44,14 +44,29 @@
                     </ul>
                 </div>
                 <div class="content">
-                    <h1><%=lg.getUsername()%>'s Account</h1><hr>
-                    <ul>
-                        <li><%=userProfile.getFirstName()%> <%=userProfile.getLastName()%></li>
-                        <li>UserName: <%=userProfile.getUsername()%></li>
-                        <li>Joined on <%=userProfile.getJoinDate()%></li>
-                        <li>E-mail Address: <%=userProfile.getEmail()%></li>
-                    </ul>
-                    <a href="/MedTracker/EditAccount/<%=lg.getUsername()%>">Edit Account</a>
+                    <div class="split-title">
+                        <h1><%=lg.getUsername()%>'s Account <span><a href="/MedTracker/EditAccount/<%=lg.getUsername()%>"> Edit Account</a></span></h1><hr>
+                    </div>
+                    <table class="table2 table-striped">
+                        <tr>
+                            <td>Name:</td>
+                            <td><%=userProfile.getFirstName()%> <%=userProfile.getLastName()%></td>
+                        </tr>
+                        <tr>
+                            <td>Username:</td>
+                            <td><%=userProfile.getUsername()%></td>
+                        </tr>
+                        <tr>
+                            <td>Joined on:</td>
+                            <td><%=userProfile.getJoinDate()%></td>
+                        </tr>
+                        <tr>
+                            <td>E-mail Address:</td>
+                            <td><%=userProfile.getEmail()%></td>
+                        </tr>
+                    
+                    </table>
+                    
                 </div>
             </div>
         </div>

@@ -15,7 +15,7 @@
                     <span class="logo"><img src="logo-white.png" alt=""/></span>
                     <ul>
                         <li><a href="/MedTracker/"><i class="fa fa-desktop"></i><br>Dashboard</a></li>
-                        <li><a href="#"><i class="fa fa-eye"></i><br>View Meds</a></li>
+                        <li><a href="/MedTracker/MyMeds/<%=lg.getUsername()%>"><i class="fa fa-eye"></i><br>View Meds</a></li>
                         <li><a href="/MedTracker/addNewMed.jsp"><i class="fa fa-plus"></i><br>Add Meds</a></li>
                     </ul>
                 </div>
@@ -23,7 +23,7 @@
                     <ul class="left">
                         <li><a href="/MedTracker/">Home</a></li>
                         <li><a href="/MedTracker/Account/<%=lg.getUsername()%>">My Account</a></li>
-                        <li><a href="#">Support</a></li>
+                        <li><a href="/MedTracker/aboutus.jsp">About Us</a></li>
                     </ul>
                     <ul class="right">
                         <li><a href="#">Settings</a></li>
@@ -32,6 +32,7 @@
                 </div>
                 <div class="content">
                     <h1>Your Dashboard</h1><hr>
+                    
                 </div>
             </div>
         </div>

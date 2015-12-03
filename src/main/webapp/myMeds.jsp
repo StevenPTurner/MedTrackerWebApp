@@ -37,7 +37,7 @@
                     <ul class="left">
                         <li><a href="/MedTracker/">Home</a></li>
                         <li><a href="/MedTracker/Account/<%=lg.getUsername()%>">My Account</a></li>
-                        <li><a href="#">Support</a></li>
+                        <li><a href="/MedTracker/aboutus.jsp">About Us</a></li>
                     </ul>
                     <ul class="right">
                         <li><a href="#">Settings</a></li>
@@ -46,7 +46,7 @@
                 </div>
                 <div class="content">
                     <h1><%=lg.getUsername()%>'s Medicines</h1><hr>
-                    <table border="solid 1px black">
+                    <table class="table table-hover">
                         <% if (myMeds == null) { %>
                         <tr><h3>You have no medicines on your account </h3></td></tr>
                         <%} else { %>
@@ -57,6 +57,7 @@
                             <Th>Last Taken</Th>
                             <Th>Next Dose</Th>
                             <Th>Doses Left</Th>
+                            <Th colspan="3" style="text-align:center">Controls</th>
                         <tr>
 
                            <% Iterator<Medicine> iterator1;
@@ -70,9 +71,9 @@
                             <td><%=med.getFormattedDate(med.getLastTaken())%> </td>
                             <td><%=med.getFormattedDate(med.getNextDose())%></td>
                             <td><%=med.getDosesLeft()%> </td>
-                            <td><a href="/MedTracker/TakeDose/<%=med.getID()%>">Take Dose</a></td>
-                            <td><a href="/MedTracker/EditMed/<%=med.getID()%>">Edit</a></td>
-                            <td><a href="/MedTracker/DeleteMed/<%=med.getID()%>">Delete</a></td>
+                            <td><a class="btn btn-success" href="/MedTracker/TakeDose/<%=med.getID()%>">Take Dose</a></td>
+                            <td><a class="btn btn-warning" href="/MedTracker/EditMed/<%=med.getID()%>">Edit</a></td>
+                            <td><a class="btn btn-danger" href="/MedTracker/DeleteMed/<%=med.getID()%>">Delete</a></td>
                         </tr>   
                         <%}
                                 }%>
@@ -87,25 +88,30 @@
                             while (iterator2.hasNext()) {
                                 Medicine med = (Medicine) iterator2.next();%> 
                                 <%--<%!int timeClock = (*3600);%>--%>
-                                <div class="clock">Clock here</div>
+                                <!--<div class="clock">Clock here</div>-->
+                                <div class="panel panel-default">
+                                <div class="panel-body">
+                                <h2><%=med.getMedicineName()%></h2>
                                 <%if(med.getTimeLeft() <= 1) { %>
-                                    <p>You are due to take a dose of <%=med.getMedicineName()%> now <a href="/MedTracker/TakeDose/<%=med.getID()%>">Take Now</a></p>
+                                    <p class="alert alert-warning">You are due to take a dose of <%=med.getMedicineName()%> now <a href="/MedTracker/TakeDose/<%=med.getID()%>">Take Now</a></p>
                                 <% } else { %>
-                                    <p>You are due to take a dose of <%=med.getMedicineName()%> in <%=med.getTimeLeft()%> hours at <%=med.getFormattedDate(med.getNextDose())%>
+                                    <p class="alert alert-info">You are due to take a dose of <%=med.getMedicineName()%> in <%=med.getTimeLeft()%> hours at <%=med.getFormattedDate(med.getNextDose())%>
                                 <% }
                                 if (med.getDosesLeft() <=5){ %>
-                                    <p>You have only <%=med.getDosesLeft()%> remaining <a href="/MedTracker/Refil/<%=med.getID()%>">order prescription</a></p>
-
+                                    <p class="alert alert-danger">You have only <%=med.getDosesLeft()%> remaining <a href="/MedTracker/Refil/<%=med.getID()%>">order prescription</a></p>
+                                  
                                 <%}%>
-
+                                </div>
+                                </div>    
                         <%}
                                 }%>
+                                
                     </div>
                 </div>
             </div>
         </div>
-        <script type="text/javascript">
-            var clock = $('.clock').FlipClock('43200', {countdown: true});
-        </script>
+        <!--<script type="text/javascript">-->
+            <!--var clock = $('.clock').FlipClock('43200', {countdown: true});-->
+        <!--</script>-->
     </body>
 </html>

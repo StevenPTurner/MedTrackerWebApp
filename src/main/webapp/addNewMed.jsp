@@ -35,7 +35,7 @@
                     <ul class="left">
                         <li><a href="/MedTracker/">Home</a></li>
                         <li><a href="/MedTracker/Account/<%=lg.getUsername()%>">My Account</a></li>
-                        <li><a href="#">Support</a></li>
+                        <li><a href="aboutus.jsp">About Us</a></li>
                     </ul>
                     <ul class="right">
                         <li><a href="#">Settings</a></li>
@@ -48,23 +48,23 @@
                         <input type="hidden" name="login" value="<%=lg.getUsername() %>" readonly="readonly">
                         <div class="form-group">
                             <label for="medicine_name">Medicine Name</label>
-                            <input type="text" name="medicine_name" id="medicine_name">
+                            <input type="text" name="medicine_name" id="medicine_name" required>
                         </div>
                         <div class="form-group">
                             <label for="dose">Dose (in mg)</label>
-                            <input type="text" name="dose" id="dose">
+                            <input type="text" name="dose" id="dose" required>
                         </div>
                         <div class="form-group">
                             <label for="doses_left">Doses Per Prescription</label>
-                            <input type="text" name="doses_left" id="doses_left">
+                            <input type="text" name="doses_left" id="doses_left" required>
                         </div>
                         <div class="form-group">
                             <label for="instructions">Instructions</label>
-                            <input type="text" name="instructions" id="instructions">
+                            <input type="text" name="instructions" id="instructions" required>
                         </div>
                         <div class="form-group">
                             <label for="time_between">Time Between Doses In Hours</label>
-                            <input type="text" name="time_between" id="time_between">
+                            <input type="text" name="time_between" id="time_between" required>
                         </div>
                         <button type="submit">Add Medicine</button>
                     </form>

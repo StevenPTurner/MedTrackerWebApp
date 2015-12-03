@@ -30,11 +30,11 @@
                 <form method="POST" action="Login">
                     <div class="form-group">
                         <label for="username">Username</label>
-                        <input type="text" name="username" id="username">
+                        <input type="text" name="username" id="username" required>
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" name="password" id="password">
+                        <input type="password" name="password" id="password" required>
                     </div>
                     ${error}
                     <button type="submit">Login</button>
