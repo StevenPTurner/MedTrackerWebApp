@@ -15,7 +15,7 @@
                     <span class="logo"><img src="logo-white.png" alt=""/></span>
                     <ul>
                         <li><a href="/MedTracker/"><i class="fa fa-desktop"></i><br>Dashboard</a></li>
-                        <li><a href="#"><i class="fa fa-eye"></i><br>View Meds</a></li>
+                        <li><a href="/MedTracker/MyMeds/<%=lg.getUsername()%>"><i class="fa fa-eye"></i><br>View Meds</a></li>
                         <li><a href="/MedTracker/addNewMed.jsp"><i class="fa fa-plus"></i><br>Add Meds</a></li>
                     </ul>
                 </div>
